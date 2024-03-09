@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
-    //@Autowired
     private CustomerRepository customerRepository;
 
 
