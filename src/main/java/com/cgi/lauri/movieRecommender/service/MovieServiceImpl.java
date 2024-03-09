@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -32,16 +33,32 @@ public class MovieServiceImpl implements MovieService{
 
     @Override
     public List<MovieDto> getAllMovies() {
-        return null;
+        return movieRepository.findAll().stream().map((movie -> MovieMapper.mapToMovieDTO(movie))).
+                collect(Collectors.toList());
     }
 
     @Override
-    public MovieDto updateMovie(Long movieId, MovieDto movieDto) {
-        return null;
+    public MovieDto updateMovie(Long movieId, MovieDto updatedMovie) {
+        Movie movie= movieRepository.findById(movieId).orElseThrow(
+                () -> new ResourceNotFoundException("Movie does not exist with the given id: " + movieId)
+        );
+
+        movie.setName(updatedMovie.getName());
+        movie.setGenre(updatedMovie.getGenre());
+        movie.setLanguage(updatedMovie.getLanguage());
+        movie.setMinimumAge(updatedMovie.getMinimumAge());
+        movie.setStartTime(updatedMovie.getStartTime());
+        movie.setEndTime(updatedMovie.getEndTime());
+
+        Movie updatedMovieObj = movieRepository.save(movie);
+        return MovieMapper.mapToMovieDTO(updatedMovieObj);
     }
 
     @Override
     public void deleteMovie(Long movieId) {
-
+        Movie movie = movieRepository.findById(movieId).orElseThrow(
+                () -> new ResourceNotFoundException("Movie does not exist with the given id: " + movieId)
+        );
+        movieRepository.deleteById(movieId);
     }
 }
