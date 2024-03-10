@@ -1,11 +1,14 @@
 package com.cgi.lauri.movieRecommender.dto;
 
+import com.cgi.lauri.movieRecommender.model.Screen;
+import com.cgi.lauri.movieRecommender.model.Showtime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,7 +19,7 @@ public class MovieDto {
     private String name;
     private String genre;
     private String language;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private List<Showtime> showtimes;
     private Integer minimumAge;
+    private List<Screen> screens;
 }

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,14 +30,16 @@ public class Movie {
     @Column(name="language")
     private String language;
 
-    @Column(name="start_time")
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ",shape = JsonFormat.Shape.STRING)
-    private LocalDateTime startTime;
-
-    @Column(name="end_time")
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ",shape = JsonFormat.Shape.STRING)
-    private LocalDateTime endTime;
+    @OneToMany(mappedBy="movie")
+    private List<Showtime> showtimes;
 
     @Column(name="minimum_age")
     private Integer minimumAge;
+
+    @ManyToMany
+    @JoinTable(
+            name = "movie_screen",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "screen_id"))
+    private List<Screen> screens;
 }

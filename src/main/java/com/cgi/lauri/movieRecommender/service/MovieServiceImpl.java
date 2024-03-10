@@ -47,8 +47,7 @@ public class MovieServiceImpl implements MovieService{
         movie.setGenre(updatedMovie.getGenre());
         movie.setLanguage(updatedMovie.getLanguage());
         movie.setMinimumAge(updatedMovie.getMinimumAge());
-        movie.setStartTime(updatedMovie.getStartTime());
-        movie.setEndTime(updatedMovie.getEndTime());
+        //EI OLE UPDATE showtime/screen
 
         Movie updatedMovieObj = movieRepository.save(movie);
         return MovieMapper.mapToMovieDTO(updatedMovieObj);

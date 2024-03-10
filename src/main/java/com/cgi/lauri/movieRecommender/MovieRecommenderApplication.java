@@ -1,5 +1,6 @@
 package com.cgi.lauri.movieRecommender;
 
+import com.cgi.lauri.movieRecommender.model.Screen;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

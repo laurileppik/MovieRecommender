@@ -6,13 +6,13 @@ import com.cgi.lauri.movieRecommender.model.Movie;
 public class MovieMapper {
     public static MovieDto mapToMovieDTO(Movie movie) {
         return new MovieDto(
-                movie.getId(), movie.getName(), movie.getGenre(), movie.getLanguage(), movie.getStartTime(),movie.getEndTime(), movie.getMinimumAge()
+                movie.getId(), movie.getName(), movie.getGenre(), movie.getLanguage(), movie.getShowtimes(), movie.getMinimumAge(),movie.getScreens()
         );
     }
 
     public static Movie maptoMovie(MovieDto movieDto) {
         return new Movie(
-                movieDto.getId(), movieDto.getName(), movieDto.getGenre(), movieDto.getLanguage(), movieDto.getStartTime(),movieDto.getEndTime(), movieDto.getMinimumAge()
+                movieDto.getId(), movieDto.getName(), movieDto.getGenre(), movieDto.getLanguage(), movieDto.getShowtimes(), movieDto.getMinimumAge(),movieDto.getScreens()
         );
     }
 }
