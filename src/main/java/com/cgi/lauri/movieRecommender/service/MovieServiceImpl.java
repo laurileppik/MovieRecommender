@@ -5,7 +5,9 @@ import com.cgi.lauri.movieRecommender.exception.ResourceNotFoundException;
 import com.cgi.lauri.movieRecommender.mapper.CustomerMapper;
 import com.cgi.lauri.movieRecommender.mapper.MovieMapper;
 import com.cgi.lauri.movieRecommender.model.Movie;
+import com.cgi.lauri.movieRecommender.model.Screen;
 import com.cgi.lauri.movieRecommender.repository.MovieRepository;
+import com.cgi.lauri.movieRecommender.repository.ScreenRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class MovieServiceImpl implements MovieService{
     private MovieRepository movieRepository;
+    private ScreenRepository screenRepository;
     @Override
     public MovieDto createMovie(MovieDto movieDto) {
         Movie movie = MovieMapper.maptoMovie(movieDto);
@@ -60,4 +63,17 @@ public class MovieServiceImpl implements MovieService{
         );
         movieRepository.deleteById(movieId);
     }
+
+    @Override
+    public MovieDto addScreensToMovie(Long movieId, List<Long> screenIds) {
+        Movie movie = movieRepository.findById(movieId).orElseThrow(
+                () -> new ResourceNotFoundException("Movie does not exist with the given id: " + movieId)
+        );
+        List<Screen> screens = screenRepository.findAllById(screenIds);
+        movie.getScreens().addAll(screens);
+        Movie savedMovie = movieRepository.save(movie);
+        return MovieMapper.mapToMovieDTO(savedMovie);
+    }
+
+
 }

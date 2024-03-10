@@ -30,10 +30,14 @@ public class Screen {
     @Transient
     private List<Boolean> occupiedSeats= new ArrayList<>();
 
+    @OneToMany(mappedBy="screen")
+    private List<Showtime> showtimes;
+
     public Screen(Long id, int noOfSeats) {
         this.id=id;
         this.noOfSeats=noOfSeats;
         this.occupiedSeats=generateSeats(noOfSeats);
+        System.out.println(occupiedSeats);
     }
 
     private List<Boolean> generateSeats(int noOfSeats) {

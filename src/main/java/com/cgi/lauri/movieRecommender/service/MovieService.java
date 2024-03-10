@@ -11,4 +11,5 @@ public interface MovieService {
     List<MovieDto> getAllMovies();
     MovieDto updateMovie(Long movieId, MovieDto movieDto);
     void deleteMovie(Long movieId);
+    MovieDto addScreensToMovie(Long movieId, List<Long> screenIds);
 }
