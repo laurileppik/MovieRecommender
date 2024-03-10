@@ -64,6 +64,12 @@ public class MovieServiceImpl implements MovieService{
         movieRepository.deleteById(movieId);
     }
 
+    @Override
+    public List<MovieDto> getFilteredMoviesByGenre(String genre) {
+        return movieRepository.findByGenre(genre).stream().map((movie -> MovieMapper.mapToMovieDTO(movie))).
+                collect(Collectors.toList());
+    }
+
     /**@Override
     public MovieDto addScreensToMovie(Long movieId, List<Long> screenIds) {
         Movie movie = movieRepository.findById(movieId).orElseThrow(

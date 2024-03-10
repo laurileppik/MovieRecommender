@@ -25,8 +25,8 @@ public class ShowtimeDto {
     private Long movieId;
 
     private Long screenId;
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss", shape = JsonFormat.Shape.STRING)
+
     private LocalDateTime startTime;
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss", shape = JsonFormat.Shape.STRING)
+
     private LocalDateTime endTime;
 }

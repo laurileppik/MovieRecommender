@@ -34,9 +34,14 @@ public class MovieController {
 
     //Get all movies REST API
     @GetMapping
-    public ResponseEntity<List<MovieDto>> getAllMovies() {
-        List<MovieDto> allMovieDtos = movieService.getAllMovies();
-        return ResponseEntity.ok(allMovieDtos);
+    public ResponseEntity<List<MovieDto>> getAllMovies(@RequestParam(required = false) String genre) {
+        List<MovieDto> filteredMovieDtos;
+        if (genre != null && !genre.isEmpty())
+            filteredMovieDtos=movieService.getFilteredMoviesByGenre(genre);
+        else
+            filteredMovieDtos = movieService.getAllMovies();
+        System.out.println(filteredMovieDtos);
+        return ResponseEntity.ok(filteredMovieDtos);
     }
 
     //Update movie REST API

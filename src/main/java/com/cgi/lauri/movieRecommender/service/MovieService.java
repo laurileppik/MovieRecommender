@@ -11,5 +11,7 @@ public interface MovieService {
     List<MovieDto> getAllMovies();
     MovieDto updateMovie(Long movieId, MovieDto movieDto);
     void deleteMovie(Long movieId);
+
+    List<MovieDto> getFilteredMoviesByGenre(String genre);
     //MovieDto addScreensToMovie(Long movieId, List<Long> screenIds);
 }
