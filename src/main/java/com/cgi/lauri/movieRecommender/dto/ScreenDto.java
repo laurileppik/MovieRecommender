@@ -22,7 +22,7 @@ public class ScreenDto {
 
     private int noOfSeats;
 
-    private List<Movie> movies;
+    //private List<Movie> movies;
 
     private List<Boolean> occupiedSeats= new ArrayList<>();
 

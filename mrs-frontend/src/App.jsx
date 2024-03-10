@@ -2,6 +2,8 @@ import './App.css'
 import FooterComponent from './components/FooterComponent'
 import HeaderComponent from './components/HeaderComponent'
 import ListMovieComponent from './components/ListMovieComponent'
+import ListShowtimeComponent from './components/ListShowtimeComponent'
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 function App() {
@@ -11,8 +13,9 @@ function App() {
       <BrowserRouter>
         <HeaderComponent />
           <Routes>
-            <Route path='/' element= {<ListMovieComponent />}> </Route>
+            <Route path='/' element= {<ListShowtimeComponent />}> </Route>
             <Route path='/movies' element= {<ListMovieComponent />}></Route>
+            <Route path='/showtimes' element= {<ListShowtimeComponent />}></Route>
           </Routes>
         <FooterComponent />
       </BrowserRouter>

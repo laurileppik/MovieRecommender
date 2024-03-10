@@ -1,5 +1,6 @@
 package com.cgi.lauri.movieRecommender.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,12 +25,13 @@ public class Screen {
     @Column(name = "number_of_seats")
     private int noOfSeats;
 
-    @ManyToMany(mappedBy = "screens")
-    private List<Movie> movies;
+    /**@ManyToMany(mappedBy = "screens")
+    private List<Movie> movies;**/
 
     @Transient
     private List<Boolean> occupiedSeats= new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy="screen")
     private List<Showtime> showtimes;
 

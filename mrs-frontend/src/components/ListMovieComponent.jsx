@@ -43,7 +43,6 @@ const ListMovieComponent = () => {
                         </tr>)
                 }
                 <tr>
-
                 </tr>
             </tbody>
         </table>

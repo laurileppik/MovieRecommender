@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin("*")
 @AllArgsConstructor
 @RestController
@@ -19,5 +21,11 @@ public class ShowtimeController {
     public ResponseEntity<ShowtimeDto> createShowtime(@RequestBody ShowtimeDto showtimeDto) {
         ShowtimeDto savedShowTimeDto = showtimeService.createShowTime(showtimeDto);
         return new ResponseEntity<>(savedShowTimeDto, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ShowtimeDto>> getAllShowtimes() {
+        List<ShowtimeDto> showtimes = showtimeService.getAllShowtimes();
+        return ResponseEntity.ok(showtimes);
     }
 }

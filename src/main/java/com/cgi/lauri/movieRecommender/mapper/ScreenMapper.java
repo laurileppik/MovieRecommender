@@ -8,13 +8,13 @@ import com.cgi.lauri.movieRecommender.model.Screen;
 public class ScreenMapper {
     public static ScreenDto mapToScreenDTO(Screen screen) {
         return new ScreenDto(
-                screen.getId(), screen.getNoOfSeats(),screen.getMovies(),screen.getOccupiedSeats(),screen.getShowtimes()
+                screen.getId(), screen.getNoOfSeats(),screen.getOccupiedSeats(),screen.getShowtimes()
         );
     }
 
     public static Screen maptoMovie(ScreenDto screenDto) {
         return new Screen(
-                screenDto.getId(), screenDto.getNoOfSeats(), screenDto.getMovies(), screenDto.getOccupiedSeats(),screenDto.getShowtimes()
+                screenDto.getId(), screenDto.getNoOfSeats(), screenDto.getOccupiedSeats(),screenDto.getShowtimes()
         );
     }
 }

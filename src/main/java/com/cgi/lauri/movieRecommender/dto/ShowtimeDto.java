@@ -22,11 +22,11 @@ import java.util.List;
 public class ShowtimeDto {
     private Long id;
 
-    private Movie movie;
+    private Long movieId;
 
+    private Long screenId;
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss", shape = JsonFormat.Shape.STRING)
     private LocalDateTime startTime;
-
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss", shape = JsonFormat.Shape.STRING)
     private LocalDateTime endTime;
-
-    private Screen screen;
 }

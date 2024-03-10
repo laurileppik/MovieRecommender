@@ -64,7 +64,7 @@ public class MovieServiceImpl implements MovieService{
         movieRepository.deleteById(movieId);
     }
 
-    @Override
+    /**@Override
     public MovieDto addScreensToMovie(Long movieId, List<Long> screenIds) {
         Movie movie = movieRepository.findById(movieId).orElseThrow(
                 () -> new ResourceNotFoundException("Movie does not exist with the given id: " + movieId)
@@ -73,7 +73,7 @@ public class MovieServiceImpl implements MovieService{
         movie.getScreens().addAll(screens);
         Movie savedMovie = movieRepository.save(movie);
         return MovieMapper.mapToMovieDTO(savedMovie);
-    }
+    }**/
 
 
 }

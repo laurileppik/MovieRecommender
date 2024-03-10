@@ -1,6 +1,8 @@
 package com.cgi.lauri.movieRecommender.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,15 +33,16 @@ public class Movie {
     private String language;
 
     @OneToMany(mappedBy="movie")
+    @JsonIgnore
     private List<Showtime> showtimes;
 
     @Column(name="minimum_age")
     private Integer minimumAge;
 
-    @ManyToMany
+    /**@ManyToMany
     @JoinTable(
             name = "movie_screen",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "screen_id"))
-    private List<Screen> screens;
+    private List<Screen> screens;**/
 }

@@ -21,5 +21,5 @@ public class MovieDto {
     private String language;
     private List<Showtime> showtimes;
     private Integer minimumAge;
-    private List<Screen> screens;
+    //private List<Screen> screens;
 }
