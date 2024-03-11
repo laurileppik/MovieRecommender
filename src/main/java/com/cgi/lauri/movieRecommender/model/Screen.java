@@ -40,6 +40,9 @@ public class Screen {
     @Column(name = "seats_in_row")
     private int seatsInRow;
 
+    @Transient
+    private List<Integer> recommendedSeats;
+
     public Screen(Long id, int noOfSeats) {
         this.id=id;
         this.noOfSeats=noOfSeats;

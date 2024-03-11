@@ -2,6 +2,7 @@ package com.cgi.lauri.movieRecommender.service;
 
 import com.cgi.lauri.movieRecommender.dto.ScreenDto;
 import com.cgi.lauri.movieRecommender.exception.ResourceNotFoundException;
+import com.cgi.lauri.movieRecommender.logic.ScreenLogic;
 import com.cgi.lauri.movieRecommender.mapper.ScreenMapper;
 import com.cgi.lauri.movieRecommender.model.Screen;
 import com.cgi.lauri.movieRecommender.repository.ScreenRepository;
@@ -9,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -16,6 +18,7 @@ import java.util.Random;
 @AllArgsConstructor
 public class ScreenServiceImpl implements ScreenService{
     private ScreenRepository screenRepository;
+    private ScreenLogic screenLogic;
     @Override
     public ScreenDto createScreen(ScreenDto screenDto) {
         Screen screen = ScreenMapper.maptoScreen(screenDto);
@@ -28,19 +31,21 @@ public class ScreenServiceImpl implements ScreenService{
         Screen screen = screenRepository.findById(screenId).orElseThrow(
                 () -> new ResourceNotFoundException("Screen not found with id: " + screenId)
         );
-        screen.setOccupiedSeats(generateRandomSeats(screen.getNoOfSeats()));
+        screen.setOccupiedSeats(screenLogic.generateRandomSeats(screen.getNoOfSeats()));
         return ScreenMapper.mapToScreenDTO(screen);
     }
 
-    private List<Boolean> generateRandomSeats(int noOfSeats) {
-        List<Boolean> seats=new ArrayList<>();
-        for (int i = 0; i < noOfSeats; i++) {
-            Random rn = new Random();
-            int tester = rn.nextInt(10) + 1;
-            if (tester%2==0)
-                seats.add(true);
-            else seats.add(false);
-        }
-        return seats;
+    @Override
+    public ScreenDto getScreen(Long screenId, Integer noOfTickets) {
+        Screen screen = screenRepository.findById(screenId).orElseThrow(
+                () -> new ResourceNotFoundException("Screen not found with id: " + screenId)
+        );
+        List<Boolean> occupiedSeats=screenLogic.generateRandomSeats(screen.getNoOfSeats());
+        screen.setOccupiedSeats(occupiedSeats);
+        screen.setRecommendedSeats(screenLogic.generateRecommendSeats(occupiedSeats,noOfTickets,screen.getRows(),screen.getSeatsInRow()));
+        return ScreenMapper.mapToScreenDTO(screen);
+
     }
+
+
 }

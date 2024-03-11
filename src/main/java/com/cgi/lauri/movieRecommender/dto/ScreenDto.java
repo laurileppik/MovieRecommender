@@ -31,4 +31,5 @@ public class ScreenDto {
     private int rows;
 
     private int seatsInRow;
+    private List<Integer> recommendedSeats;
 }

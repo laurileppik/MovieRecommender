@@ -6,7 +6,7 @@ const ScreenComponent = () => {
   const { screenId } = useParams();
   const [screen, setScreen] = useState(null);
   const [seats, setSeats] = useState([]);
-  
+
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const ticketCount = queryParams.get('ticketCount');
@@ -59,6 +59,7 @@ const ScreenComponent = () => {
           <p>{screen.seatsInRow}</p>
           <p>{screen.occupiedSeats}</p>
           {renderSeatingPlan()}
+          <p>Saal {screen.id}</p>
         </div>
       )}
     </div>

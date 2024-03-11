@@ -22,8 +22,12 @@ public class ScreenController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ScreenDto> getScreenById(@PathVariable("id") Long screenId) {
-        ScreenDto screenDto = screenService.getScreen(screenId);
+    public ResponseEntity<ScreenDto> getScreenById(@PathVariable("id") Long screenId, @RequestParam(required = false) Integer ticketCount) {
+        ScreenDto screenDto;
+        if (ticketCount !=null && ticketCount>0)
+            screenDto=screenService.getScreen(screenId,ticketCount);
+        else
+            screenDto=screenService.getScreen(screenId);
         return ResponseEntity.ok(screenDto);
     }
 }
