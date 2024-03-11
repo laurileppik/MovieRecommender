@@ -6,3 +6,4 @@ export const listMovies = () => {
     return axios.get(REST_API_BASE_URL)
 }
 
+export const getMovie = (movieId) => axios.get(REST_API_BASE_URL + '/' + movieId);

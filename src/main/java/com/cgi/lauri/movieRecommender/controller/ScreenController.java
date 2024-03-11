@@ -20,4 +20,10 @@ public class ScreenController {
         ScreenDto savedScreen = screenService.createScreen(screenDto);
         return new ResponseEntity<>(savedScreen, HttpStatus.CREATED);
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity<ScreenDto> getScreenById(@PathVariable("id") Long screenId) {
+        ScreenDto screenDto = screenService.getScreen(screenId);
+        return ResponseEntity.ok(screenDto);
+    }
 }

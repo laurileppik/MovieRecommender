@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { listShowTimes } from '../services/ShowTimeService';
 
+import { Link } from 'react-router-dom'
+
 const ListMovieComponent = () => {
     const [movies, setMovies] = useState([]);
     const [selectedGenre, setSelectedGenre] = useState('');
@@ -63,7 +65,7 @@ const ListMovieComponent = () => {
                                 <td>{time.endTime}</td>
                                 <td>{time.screen.id}</td>
                                 <td>
-                                    <button className="btn btn-primary">Osta piletid</button>
+                                    <Link to={`/showtimes/${time.id}`} className="btn btn-primary">Osta piletid</Link>
                                 </td> 
                             </tr>
                         )

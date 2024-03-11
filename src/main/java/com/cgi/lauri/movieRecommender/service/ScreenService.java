@@ -6,4 +6,5 @@ import com.cgi.lauri.movieRecommender.model.Screen;
 
 public interface ScreenService {
     ScreenDto createScreen(ScreenDto screenDto);
+    ScreenDto getScreen(Long screenId);
 }
