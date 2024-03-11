@@ -28,4 +28,10 @@ public class ShowtimeController {
         List<ShowtimeDto> showtimes = showtimeService.getAllShowtimes();
         return ResponseEntity.ok(showtimes);
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity<ShowtimeDto> getShowtimeById(@PathVariable("id") Long showId){
+        ShowtimeDto showtimeDto = showtimeService.getShowtimeById(showId);
+        return ResponseEntity.ok(showtimeDto);
+    }
 }

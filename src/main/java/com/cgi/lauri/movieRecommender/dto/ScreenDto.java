@@ -24,7 +24,7 @@ public class ScreenDto {
 
     //private List<Movie> movies;
 
-    private List<Boolean> occupiedSeats= new ArrayList<>();
+    private List<Boolean> occupiedSeats;
 
     private List<Showtime> showtimes;
 }

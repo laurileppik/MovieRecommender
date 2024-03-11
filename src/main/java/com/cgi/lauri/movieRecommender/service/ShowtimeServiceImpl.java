@@ -45,4 +45,12 @@ public class ShowtimeServiceImpl implements ShowtimeService{
         return showtimeRepository.findAll().stream().map((showtime) -> ShowtimeMapper.mapToShowtimeDto(showtime)).
                 collect(Collectors.toList());
     }
+
+    @Override
+    public ShowtimeDto getShowtimeById(Long showId) {
+        Showtime showtime = showtimeRepository.findById(showId).orElseThrow(
+                () -> new ResourceNotFoundException("Showtime does not exist with the given id: " + showId)
+        );
+        return ShowtimeMapper.mapToShowtimeDto(showtime);
+    }
 }

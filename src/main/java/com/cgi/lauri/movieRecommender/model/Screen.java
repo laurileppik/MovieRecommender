@@ -14,7 +14,7 @@ import java.util.Random;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @Entity
 @Table(name = "screens")
 public class Screen {
@@ -29,7 +29,8 @@ public class Screen {
     private List<Movie> movies;**/
 
     @Transient
-    private List<Boolean> occupiedSeats= new ArrayList<>();
+    private List<Boolean> occupiedSeats;
+
 
     @JsonIgnore
     @OneToMany(mappedBy="screen")
@@ -38,11 +39,19 @@ public class Screen {
     public Screen(Long id, int noOfSeats) {
         this.id=id;
         this.noOfSeats=noOfSeats;
-        this.occupiedSeats=generateSeats(noOfSeats);
+        this.occupiedSeats=generateSeats(this.noOfSeats);
         System.out.println(occupiedSeats);
     }
 
+    public Screen(Long id, int noOfSeats, List<Boolean> occupiedSeats, List<Showtime> showtimes) {
+        this.id = id;
+        this.noOfSeats = noOfSeats;
+        this.occupiedSeats = generateSeats(this.noOfSeats);
+        this.showtimes = showtimes;
+    }
+
     private List<Boolean> generateSeats(int noOfSeats) {
+        System.out.println("             " + noOfSeats);
         List<Boolean> seats=new ArrayList<>();
         for (int i = 0; i < noOfSeats; i++) {
             Random rn = new Random();

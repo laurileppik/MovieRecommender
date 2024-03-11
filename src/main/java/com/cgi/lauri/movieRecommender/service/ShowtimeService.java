@@ -9,4 +9,5 @@ import java.util.List;
 public interface ShowtimeService {
     ShowtimeDto createShowTime(ShowtimeDto showtimeDto);
     List<ShowtimeDto> getAllShowtimes();
+    ShowtimeDto getShowtimeById(Long showId);
 }

@@ -37,6 +37,7 @@ const ListMovieComponent = () => {
             <table className='table table-striped table-bordered'>
                 <thead>
                     <tr>
+                        <th>Showtime Id</th>
                         <th>Movie Id</th>
                         <th>Movie Name</th>
                         <th>Genre</th>
@@ -45,12 +46,14 @@ const ListMovieComponent = () => {
                         <th>Start time</th>
                         <th>End time</th>
                         <th>Screen</th>
+                        <th></th> 
                     </tr>
                 </thead>
                 <tbody>
                     {movies.map(movie =>
                         movie.showtimes.map(time =>
                             <tr key={time.id}>
+                                <td>{time.id}</td>
                                 <td>{movie.id}</td>
                                 <td>{movie.name}</td>
                                 <td>{movie.genre}</td>
@@ -59,6 +62,9 @@ const ListMovieComponent = () => {
                                 <td>{time.startTime}</td>
                                 <td>{time.endTime}</td>
                                 <td>{time.screen.id}</td>
+                                <td>
+                                    <button className="btn btn-primary">Osta piletid</button>
+                                </td> 
                             </tr>
                         )
                     )}

@@ -31,6 +31,7 @@ public class MovieServiceImpl implements MovieService{
         Movie movie = movieRepository.findById(movieId).orElseThrow(
                 () -> new ResourceNotFoundException("Movie does not exist with the given id: " + movieId)
         );
+
         return MovieMapper.mapToMovieDTO(movie);
     }
 
