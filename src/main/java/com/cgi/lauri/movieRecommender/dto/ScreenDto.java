@@ -27,4 +27,8 @@ public class ScreenDto {
     private List<Boolean> occupiedSeats;
 
     private List<Showtime> showtimes;
+
+    private int rows;
+
+    private int seatsInRow;
 }

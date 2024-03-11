@@ -63,7 +63,7 @@ const ShowtimeComponent = () => {
           <button onClick={handleSelectTicket}>+</button>
           <button onClick={handleDeselectTicket}>-</button>
           <p>Tickets: {ticketCount}</p>
-          <Link to={`/screens/${showtime.screenId}`} className="btn btn-primary">Vali kohad</Link>
+          <Link to={`/screens/${showtime.screenId}?ticketCount=${ticketCount}`} className="btn btn-primary">Vali kohad</Link>
         </div>
       )}
     </div>

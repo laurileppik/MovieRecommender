@@ -7,3 +7,17 @@
     text-align: center;
     color: white;
 }
+  
+.available {
+    background-color: green;
+}
+  
+.occupied {
+    background-color: red;
+}
+
+.seating-plan-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
