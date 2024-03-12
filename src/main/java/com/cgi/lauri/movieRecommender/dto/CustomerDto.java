@@ -1,9 +1,12 @@
 package com.cgi.lauri.movieRecommender.dto;
 
+import com.cgi.lauri.movieRecommender.model.MovieRating;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -15,4 +18,5 @@ public class CustomerDto {
     private String firstName;
 
     private String lastName;
+    private Set<MovieRating> ratings;
 }

@@ -6,11 +6,11 @@ import com.cgi.lauri.movieRecommender.model.Customer;
 public class CustomerMapper {
     public static CustomerDto mapToCustomerDTO(Customer customer) {
         return new CustomerDto(
-                customer.getId(), customer.getFirstName(), customer.getLastName()
+                customer.getId(), customer.getFirstName(), customer.getLastName(),customer.getRatings()
         );
     }
 
     public static Customer maptoCustomer(CustomerDto customerDto) {
-        return new Customer(customerDto.getId(), customerDto.getFirstName(), customerDto.getLastName());
+        return new Customer(customerDto.getId(), customerDto.getFirstName(), customerDto.getLastName(),customerDto.getRatings());
     }
 }

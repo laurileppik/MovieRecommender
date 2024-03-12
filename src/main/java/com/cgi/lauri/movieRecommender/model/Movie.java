@@ -11,6 +11,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -38,6 +39,10 @@ public class Movie {
 
     @Column(name="minimum_age")
     private Integer minimumAge;
+
+    @OneToMany(mappedBy = "movie")
+    @JsonIgnore
+    private Set<MovieRating> ratings;
 
     /**@ManyToMany
     @JoinTable(
