@@ -8,11 +8,7 @@ import com.cgi.lauri.movieRecommender.model.Screen;
 import com.cgi.lauri.movieRecommender.repository.ScreenRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 @Service
 @AllArgsConstructor

@@ -6,6 +6,7 @@ const ScreenComponent = () => {
   const { screenId } = useParams();
   const [screen, setScreen] = useState(null);
   const [seats, setSeats] = useState([]);
+  const [recommSeats, setRecommSeats] = useState([]);
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -14,9 +15,10 @@ const ScreenComponent = () => {
   useEffect(() => {
     const fetchScreen = async () => {
       try {
-        const response = await getScreen(screenId);
+        const response = await getScreen(screenId, ticketCount);
         setScreen(response.data);
         setSeats(response.data.occupiedSeats);
+        setRecommSeats(response.data.recommendedSeats)
       } catch (error) {
         console.error(error);
       }
@@ -33,7 +35,11 @@ const ScreenComponent = () => {
       const rowSeats = [];
       for (let j = 0; j < screen.seatsInRow; j++) {
         const seatIndex = i * screen.seatsInRow + j;
-        const seatStatus = seats[seatIndex] ? 'available' : 'occupied';
+        let seatStatus = seats[seatIndex] ? 'available' : 'occupied';
+        if (recommSeats && recommSeats.includes(seatIndex)){
+            console.log(seatStatus)
+            seatStatus = 'recommend'
+        }
         rowSeats.push(
           <td key={j} className={seatStatus}>
             Seat {seatIndex + 1}

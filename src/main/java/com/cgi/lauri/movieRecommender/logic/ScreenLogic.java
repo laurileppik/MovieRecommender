@@ -22,10 +22,15 @@ public class ScreenLogic {
     }
 
     public List<Integer> generateRecommendSeats(List<Boolean> occupiedSeats, Integer noOfTickets, int rows, int seatsInRow) {
+        //JUURDE LISADA ET VOTA 10 ESIMEST PARIMAT JA VOTA NEIST PARIMA SKOORIGA
         if (noOfTickets > occupiedSeats.stream().filter(seat -> seat).count())
             return null;
         TreeMap<Integer, List<int[]>> scoremap = populateHeatMap(occupiedSeats,rows,seatsInRow);
         List<Integer> recommendedSeats=new ArrayList<>();
+
+        //If there are no seats next to one another
+        int backupCounter=noOfTickets;
+        List<Integer> backupSeats = new ArrayList<>();
 
         for (Integer score : scoremap.keySet()) {
             List<int[]> allScoreIndexes = scoremap.get(score);
@@ -40,11 +45,15 @@ public class ScreenLogic {
                         return recommendedSeats.stream().map(mapper -> seatsInRow * seat[0]+mapper)
                                 .collect(Collectors.toList());
                     }
+                    if (backupCounter>0){
+                        backupSeats.add(seatIndex);
+                        backupCounter--;
+                    }
                 }
             }
         }
 
-        return null;
+        return backupSeats;
     }
 
     private List<Boolean> getRow(List<Boolean> originalOccupiedSeats, int seatIndex, int seatsInRow) {
@@ -54,7 +63,6 @@ public class ScreenLogic {
     }
 
     private List<Integer> findSeatsInRow(List<Boolean> occupiedSeatsInRow, Integer noOfTickets, int index) {
-        System.out.println(noOfTickets + " " + index);
         List<Integer> seats = new ArrayList<>();
         if (index < 0 || index >= occupiedSeatsInRow.size()) {
             return seats;
@@ -115,7 +123,6 @@ public class ScreenLogic {
 
             }
         }
-        System.out.println(scoreWithIndex);
         return scoreWithIndex;
     }
 }
