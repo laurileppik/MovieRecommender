@@ -16,6 +16,10 @@ import java.util.Set;
 @Entity
 @Table(name = "customers")
 public class Customer {
+    //maybe implement if time
+    //https://www.baeldung.com/spring-security-login
+    //https://www.baeldung.com/spring-security-login-react
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,4 +33,12 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     @JsonIgnore
     private Set<MovieRating> ratings;
+
+    @Column(name="user_name", nullable=false)
+    private String userName;
+
+    @Column(name="password", nullable=false)
+    private String password;
+
+    private String role;
 }

@@ -2,25 +2,36 @@ package com.cgi.lauri.movieRecommender.service;
 
 import com.cgi.lauri.movieRecommender.dto.CustomerDto;
 import com.cgi.lauri.movieRecommender.exception.ResourceNotFoundException;
+import com.cgi.lauri.movieRecommender.logic.CustomerLogic;
 import com.cgi.lauri.movieRecommender.mapper.CustomerMapper;
 import com.cgi.lauri.movieRecommender.model.Customer;
 import com.cgi.lauri.movieRecommender.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static org.apache.catalina.realm.UserDatabaseRealm.getRoles;
 
 @Service
 @AllArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
-
+    private CustomerLogic customerLogic;
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public CustomerDto createCustomer(CustomerDto customerDto) {
         Customer customer = CustomerMapper.maptoCustomer(customerDto);
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         Customer savedCustomer = customerRepository.save(customer);
         return CustomerMapper.mapToCustomerDTO(savedCustomer);
     }
