@@ -2,12 +2,9 @@ package com.cgi.lauri.movieRecommender.service;
 
 import com.cgi.lauri.movieRecommender.dto.MovieDto;
 import com.cgi.lauri.movieRecommender.exception.ResourceNotFoundException;
-import com.cgi.lauri.movieRecommender.mapper.CustomerMapper;
 import com.cgi.lauri.movieRecommender.mapper.MovieMapper;
 import com.cgi.lauri.movieRecommender.model.Movie;
-import com.cgi.lauri.movieRecommender.model.Screen;
 import com.cgi.lauri.movieRecommender.repository.MovieRepository;
-import com.cgi.lauri.movieRecommender.repository.ScreenRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +15,6 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class MovieServiceImpl implements MovieService{
     private MovieRepository movieRepository;
-    private ScreenRepository screenRepository;
     @Override
     public MovieDto createMovie(MovieDto movieDto) {
         Movie movie = MovieMapper.maptoMovie(movieDto);

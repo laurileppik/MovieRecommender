@@ -6,6 +6,7 @@ const HeaderComponent = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('jwtToken');
+        console.log("Logout successful")
         history('/'); 
     };
 

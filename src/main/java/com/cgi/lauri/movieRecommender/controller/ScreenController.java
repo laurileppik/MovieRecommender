@@ -1,7 +1,6 @@
 package com.cgi.lauri.movieRecommender.controller;
 
 import com.cgi.lauri.movieRecommender.dto.ScreenDto;
-import com.cgi.lauri.movieRecommender.repository.ScreenRepository;
 import com.cgi.lauri.movieRecommender.service.ScreenService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

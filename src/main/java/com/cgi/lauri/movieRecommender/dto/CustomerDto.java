@@ -15,13 +15,10 @@ import java.util.Set;
 @AllArgsConstructor
 public class CustomerDto {
     private Long id;
-
     private String firstName;
-
     private String lastName;
     private Set<MovieRating> ratings;
-
     private String userName;
-    private String password;
+    //private String password;
     private String role;
 }

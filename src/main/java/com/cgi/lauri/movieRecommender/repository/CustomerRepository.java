@@ -1,7 +1,6 @@
 package com.cgi.lauri.movieRecommender.repository;
 
 import com.cgi.lauri.movieRecommender.model.Customer;
-import com.cgi.lauri.movieRecommender.service.CustomerService;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

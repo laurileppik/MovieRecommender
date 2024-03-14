@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { listShowTimes } from '../services/ShowTimeService';
+import { getCustomer } from '../services/CustomerService';
 
 import { Link } from 'react-router-dom'
 
 const ListMovieComponent = () => {
     const [movies, setMovies] = useState([]);
     const [selectedGenre, setSelectedGenre] = useState('');
+    const [customer, SetCustomer] = useState([]);
 
     useEffect(() => {
         const fetchShowTimes = async () => {
@@ -23,6 +25,21 @@ const ListMovieComponent = () => {
     const handleGenreChange = (event) => {
         setSelectedGenre(event.target.value);
     };
+
+    useEffect(() => {
+        const fetchCustomer = async() => {
+            try {
+                const response = await getCustomer(localStorage.getItem("customerId"))
+                console.log(response.data)
+                SetCustomer(response.data);
+            }
+            catch(error) {
+                console.log(error);
+            }
+        };
+    
+        fetchCustomer();
+    }, []);
 
     return (
         <div className='container'>
@@ -73,6 +90,7 @@ const ListMovieComponent = () => {
                 </tbody>
             </table>
             <Link to={`http://localhost:3000/login`} className="btn btn-primary">Login</Link>
+            <p></p>
         </div>
     );
 };

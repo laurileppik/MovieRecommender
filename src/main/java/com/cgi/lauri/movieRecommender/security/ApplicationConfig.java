@@ -19,6 +19,7 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class ApplicationConfig {
+    //https://www.geeksforgeeks.org/spring-security-login-page-with-react/
 
     @SuppressWarnings("deprecation")
     @Bean

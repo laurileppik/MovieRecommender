@@ -16,10 +16,6 @@ import java.util.Set;
 @Entity
 @Table(name = "customers")
 public class Customer {
-    //maybe implement if time
-    //https://www.baeldung.com/spring-security-login
-    //https://www.baeldung.com/spring-security-login-react
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,4 +37,8 @@ public class Customer {
     private String password;
 
     private String role;
+
+    public Customer(Long id, String firstName, String lastName, Set<MovieRating> ratings, String userName, String role) {
+
+    }
 }

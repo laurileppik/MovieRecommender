@@ -1,7 +1,6 @@
 package com.cgi.lauri.movieRecommender.service;
 
 import com.cgi.lauri.movieRecommender.dto.CustomerDto;
-import com.cgi.lauri.movieRecommender.model.Customer;
 
 import java.util.List;
 

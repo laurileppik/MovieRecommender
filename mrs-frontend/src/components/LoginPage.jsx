@@ -25,7 +25,7 @@ function LoginPage() {
             const userId= response.data.id;
             const jwtToken = response.data.jwt;
             localStorage.setItem('jwtToken', jwtToken);
-            
+            localStorage.setItem('customerId', userId);
             history('/'); 
         } catch (error) { 
             console.error('Login failed:', error.response ? error.response.data : error.message); 

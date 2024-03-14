@@ -2,12 +2,10 @@ package com.cgi.lauri.movieRecommender.controller;
 
 import com.cgi.lauri.movieRecommender.controller.response.AuthResponse;
 import com.cgi.lauri.movieRecommender.dto.CustomerDto;
-import com.cgi.lauri.movieRecommender.mapper.CustomerMapper;
 import com.cgi.lauri.movieRecommender.model.Customer;
 import com.cgi.lauri.movieRecommender.repository.CustomerRepository;
 import com.cgi.lauri.movieRecommender.security.JwtProvider;
 import com.cgi.lauri.movieRecommender.service.CustomerServiceImpl;
-import com.cgi.lauri.movieRecommender.service.UserService;
 import com.cgi.lauri.movieRecommender.service.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,18 +29,10 @@ public class UserController {
     private CustomerRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-
     @Autowired
     private UserServiceImplementation customUserDetails;
     @Autowired
     private CustomerServiceImpl customerService;
-
-    //@Autowired
-    //private UserService userService;
-
-
-
 
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse> createUserHandler(@RequestBody Customer user)  {
@@ -53,7 +43,7 @@ public class UserController {
         String role = user.getRole();
 
         Optional<Customer> isEmailExist = userRepository.findByUserName(email);
-        if (isEmailExist != null) {
+        if (isEmailExist.isPresent()) {
             //throw new Exception("Email Is Already Used With Another Account");
 
         }
@@ -87,7 +77,6 @@ public class UserController {
     public ResponseEntity<AuthResponse> signin(@RequestBody Customer loginRequest) {
         String username = loginRequest.getUserName();
         String password = loginRequest.getPassword();
-        String id = loginRequest.getUserName();
 
         CustomerDto customerDTo= customerService.getCustomerByUsername(username);
 
