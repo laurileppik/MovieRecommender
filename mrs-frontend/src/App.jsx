@@ -18,7 +18,7 @@ function App() {
         <HeaderComponent />
           <Routes>
             <Route path='/' element= {<ListShowtimeComponent />}> </Route>
-            <Route path='/movies' element= {<ListMovieComponent />}></Route>
+            <Route path='/movies/:customerId' element= {<ListMovieComponent />}></Route>
             <Route path='/showtimes' element= {<ListShowtimeComponent />}></Route>
             <Route path='/showtimes/:showtimeID' element={<ShowtimeComponent />} />
             <Route path='/screens/:screenId' element={<ScreenComponent />} />

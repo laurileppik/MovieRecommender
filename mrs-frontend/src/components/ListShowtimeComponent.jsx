@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { listShowTimes } from '../services/ShowTimeService';
 import { getCustomer } from '../services/CustomerService';
+import { listRatings } from '../services/RatingService';
 
 import { Link } from 'react-router-dom'
 
@@ -8,6 +9,7 @@ const ListMovieComponent = () => {
     const [movies, setMovies] = useState([]);
     const [selectedGenre, setSelectedGenre] = useState('');
     const [customer, SetCustomer] = useState([]);
+    const [ratings, SetRatings] = useState([]);
 
     useEffect(() => {
         const fetchShowTimes = async () => {
@@ -25,6 +27,21 @@ const ListMovieComponent = () => {
     const handleGenreChange = (event) => {
         setSelectedGenre(event.target.value);
     };
+
+    useEffect(() => {
+        const fetchRatings = async() => {
+            try {
+                const response = await listRatings(localStorage.getItem("customerId"))
+                console.log(response.data)
+                SetRatings(response.data);
+            }
+            catch(error) {
+                console.log(error);
+            }
+        };
+    
+        fetchRatings();
+    }, []);
 
     useEffect(() => {
         const fetchCustomer = async() => {
@@ -89,6 +106,9 @@ const ListMovieComponent = () => {
                     )}
                 </tbody>
             </table>
+            {ratings.length > 0 && (
+                <Link to={`/movies/${localStorage.getItem("customerId")}`}className="btn btn-secondary"> Soovita filme vaatamisajaloo põhjal.</Link> 
+            )}
             <Link to={`http://localhost:3000/login`} className="btn btn-primary">Login</Link>
             <p></p>
         </div>

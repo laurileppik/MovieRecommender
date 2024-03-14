@@ -2,8 +2,11 @@ package com.cgi.lauri.movieRecommender.service;
 
 import com.cgi.lauri.movieRecommender.dto.MovieDto;
 import com.cgi.lauri.movieRecommender.exception.ResourceNotFoundException;
+import com.cgi.lauri.movieRecommender.logic.MovieRecommenderLogic;
 import com.cgi.lauri.movieRecommender.mapper.MovieMapper;
 import com.cgi.lauri.movieRecommender.model.Movie;
+import com.cgi.lauri.movieRecommender.model.MovieRating;
+import com.cgi.lauri.movieRecommender.repository.MovieRatingRepository;
 import com.cgi.lauri.movieRecommender.repository.MovieRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class MovieServiceImpl implements MovieService{
     private MovieRepository movieRepository;
+    private MovieRatingRepository movieRatingRepository;
+    private MovieRecommenderLogic movieRecommenderLogic;
     @Override
     public MovieDto createMovie(MovieDto movieDto) {
         Movie movie = MovieMapper.maptoMovie(movieDto);
@@ -64,6 +69,14 @@ public class MovieServiceImpl implements MovieService{
     @Override
     public List<MovieDto> getFilteredMoviesByGenre(String genre) {
         return movieRepository.findByGenre(genre).stream().map((movie -> MovieMapper.mapToMovieDTO(movie))).
+                collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MovieDto> getAllRecommendedMovies(Long customerId) {
+        List<MovieRating> ratings = movieRatingRepository.findAllByCustomer_Id(customerId);
+        List<Movie> recommendedMovies = movieRecommenderLogic.recommendedMovies(ratings);
+        return recommendedMovies.stream().map((movie -> MovieMapper.mapToMovieDTO(movie))).
                 collect(Collectors.toList());
     }
 

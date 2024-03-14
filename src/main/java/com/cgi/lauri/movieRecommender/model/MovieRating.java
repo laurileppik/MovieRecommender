@@ -26,4 +26,8 @@ public class MovieRating {
     private Movie movie;
 
     private int rating;
+
+    public MovieRating(Customer customer, Movie movie, int rating) {
+
+    }
 }

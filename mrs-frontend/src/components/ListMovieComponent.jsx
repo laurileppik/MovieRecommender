@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react'
 import { listMovies } from '../services/MovieService'
 
 const ListMovieComponent = () => {
-    //Comment
 
     const [movies, setMovies] = useState([])
 
     useEffect(() => {
-        listMovies().then((response) => {
+        listMovies(localStorage.getItem("customerId")).then((response) => {
             setMovies(response.data);
+            console.log(response.data)
         }).catch(error => {
             console.error(error);
         })
@@ -24,8 +24,6 @@ const ListMovieComponent = () => {
                     <th>Movie Name</th>
                     <th>Genre</th>
                     <th>Language</th>
-                    <th>Start time</th>
-                    <th>End time</th>
                     <th>Minimum age</th>
                 </tr>
             </thead>
@@ -37,8 +35,6 @@ const ListMovieComponent = () => {
                             <td>{movie.name}</td>
                             <td>{movie.genre}</td>
                             <td>{movie.language}</td>
-                            <td>{movie.startTime}</td>
-                            <td>{movie.endTime}</td>
                             <td>{movie.minimumAge}</td>
                         </tr>)
                 }

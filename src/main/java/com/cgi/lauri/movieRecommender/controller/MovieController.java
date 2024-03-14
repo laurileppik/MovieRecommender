@@ -42,6 +42,12 @@ public class MovieController {
         return ResponseEntity.ok(filteredMovieDtos);
     }
 
+    @GetMapping("/sorted/{id}")
+    public ResponseEntity<List<MovieDto>> getAllRecommendedMovies(@PathVariable("id") Long customerId) {
+        List<MovieDto> recommendedMovies = movieService.getAllRecommendedMovies(customerId);
+        return ResponseEntity.ok(recommendedMovies);
+    }
+
     //Update movie REST API
     @PutMapping("{id}")
     //@PathVariable necessary because we want to pass id as movieId
