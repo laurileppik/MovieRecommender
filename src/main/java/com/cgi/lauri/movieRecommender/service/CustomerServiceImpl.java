@@ -6,6 +6,7 @@ import com.cgi.lauri.movieRecommender.logic.CustomerLogic;
 import com.cgi.lauri.movieRecommender.mapper.CustomerMapper;
 import com.cgi.lauri.movieRecommender.model.Customer;
 import com.cgi.lauri.movieRecommender.repository.CustomerRepository;
+import com.cgi.lauri.movieRecommender.repository.EmployeeRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -24,6 +25,7 @@ import static org.apache.catalina.realm.UserDatabaseRealm.getRoles;
 @Service
 @AllArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
+
     private CustomerRepository customerRepository;
     private CustomerLogic customerLogic;
     private PasswordEncoder passwordEncoder;
@@ -69,5 +71,13 @@ public class CustomerServiceImpl implements CustomerService {
                 () -> new ResourceNotFoundException("Customer does not exist with given id: " + customerId)
         );
         customerRepository.deleteById(customerId);
+    }
+
+    @Override
+    public CustomerDto getCustomerByUsername(String username) {
+        Customer customer = customerRepository.findByUserName(username).orElseThrow(
+                () -> new ResourceNotFoundException("Customer does not exist with given username: " + username)
+        );
+        return CustomerMapper.mapToCustomerDTO(customer);
     }
 }

@@ -72,6 +72,7 @@ const ListMovieComponent = () => {
                     )}
                 </tbody>
             </table>
+            <Link to={`http://localhost:3000/login`} className="btn btn-primary">Login</Link>
         </div>
     );
 };

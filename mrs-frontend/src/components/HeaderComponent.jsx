@@ -1,15 +1,24 @@
-import React from 'react'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderComponent = () => {
-  return (
-    <div>
-        <header>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <a className="navbar-brand" href="/">Apollo cinema</a>
-            </nav>
-        </header>
-    </div>
-  )
-}
+    const history = useNavigate();
 
-export default HeaderComponent
+    const handleLogout = () => {
+        localStorage.removeItem('jwtToken');
+        history('/'); 
+    };
+
+    return (
+        <div>
+            <header>
+                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                    <a className="navbar-brand" href="/">Apollo cinema</a>
+                    <button className="btn btn-link" onClick={handleLogout}> Logout </button>
+                </nav>
+            </header>
+        </div>
+    );
+};
+
+export default HeaderComponent;
