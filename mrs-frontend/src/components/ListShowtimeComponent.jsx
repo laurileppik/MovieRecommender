@@ -10,22 +10,32 @@ const ListMovieComponent = () => {
     const [selectedGenre, setSelectedGenre] = useState('');
     const [customer, SetCustomer] = useState([]);
     const [ratings, SetRatings] = useState([]);
+    const [ageFilter, setAgeFilter] = useState('');
+    const [languageFilter, setLanguageFilter] = useState('');
 
     useEffect(() => {
         const fetchShowTimes = async () => {
             try {
-                const response = await listShowTimes(selectedGenre);
+                const response = await listShowTimes(selectedGenre, ageFilter,languageFilter);
                 setMovies(response.data);
             } catch (error) {
                 console.error(error);
             }
         };
-
+    
         fetchShowTimes();
-    }, [selectedGenre]);
+    }, [selectedGenre, ageFilter,languageFilter]);
+
+    const handleLanguageChange = (event) => {
+        setLanguageFilter(event.target.value);
+    };
 
     const handleGenreChange = (event) => {
         setSelectedGenre(event.target.value);
+    };
+
+    const handleAgeFilter = (event) => {
+        setAgeFilter(event.target.value);
     };
 
     useEffect(() => {
@@ -68,6 +78,23 @@ const ListMovieComponent = () => {
                     <option value='Action'>Action</option>
                     <option value='Comedy'>Comedy</option>
                     <option value='Drama'>Drama</option>
+                </select>
+            </div>
+            <div className='age-filter'>
+                <label htmlFor='age'>Select Age:</label>
+                <select id='age' onChange={handleAgeFilter} value={ageFilter}>
+                    <option value=''>All ages</option>
+                    <option value='12'>12</option>
+                    <option value='14'>14</option>
+                    <option value='16'>16</option>
+                </select>
+            </div>
+            <div className='lang-filter'>
+                <label htmlFor='language'>Select Language:</label>
+                <select id='language' onChange={handleLanguageChange} value={languageFilter}>
+                    <option value=''>All languages</option>
+                    <option value='Estonian'>Estonian</option>
+                    <option value='English'>English</option>
                 </select>
             </div>
             <table className='table table-striped table-bordered'>

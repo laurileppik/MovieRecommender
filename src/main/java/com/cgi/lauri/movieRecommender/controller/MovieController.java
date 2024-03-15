@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @CrossOrigin("*")
 @AllArgsConstructor
@@ -32,12 +33,8 @@ public class MovieController {
 
     //Get all movies REST API
     @GetMapping
-    public ResponseEntity<List<MovieDto>> getAllMovies(@RequestParam(required = false) String genre) {
-        List<MovieDto> filteredMovieDtos;
-        if (genre != null && !genre.isEmpty())
-            filteredMovieDtos=movieService.getFilteredMoviesByGenre(genre);
-        else
-            filteredMovieDtos = movieService.getAllMovies();
+    public ResponseEntity<List<MovieDto>> getAllMovies(@RequestParam(required = false) String genre, @RequestParam(required = false) Integer minAge,@RequestParam(required = false) String language) {
+        List<MovieDto> filteredMovieDtos = movieService.getFilteredMovies(genre, minAge,language);
         System.out.println(filteredMovieDtos);
         return ResponseEntity.ok(filteredMovieDtos);
     }

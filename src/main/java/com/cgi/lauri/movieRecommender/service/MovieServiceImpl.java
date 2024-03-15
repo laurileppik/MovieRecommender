@@ -15,7 +15,9 @@ import com.cgi.lauri.movieRecommender.repository.MovieRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -72,9 +74,23 @@ public class MovieServiceImpl implements MovieService{
     }
 
     @Override
-    public List<MovieDto> getFilteredMoviesByGenre(String genre) {
-        return movieRepository.findByGenre(genre).stream().map((movie -> MovieMapper.mapToMovieDTO(movie))).
-                collect(Collectors.toList());
+    public List<MovieDto> getFilteredMovies(String genre,Integer minAge,String language) {
+        List<Predicate<Movie>> filters = new ArrayList<>();
+        if (genre != null) {
+            filters.add(movie -> movie.getGenre().equals(genre));
+        }
+        if (minAge != null) {
+            filters.add(movie -> movie.getMinimumAge() <= minAge);
+        }
+        if (language!=null) {
+            filters.add(movie -> movie.getLanguage().equals(language));
+        }
+
+        Predicate<Movie> combinedFilter = filters.stream().reduce(Predicate::and).orElse(movie -> true);
+        return movieRepository.findAll().stream()
+                .filter(combinedFilter)
+                .map(MovieMapper::mapToMovieDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
