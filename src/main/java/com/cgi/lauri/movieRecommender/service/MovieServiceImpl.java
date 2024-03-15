@@ -3,9 +3,13 @@ package com.cgi.lauri.movieRecommender.service;
 import com.cgi.lauri.movieRecommender.dto.MovieDto;
 import com.cgi.lauri.movieRecommender.exception.ResourceNotFoundException;
 import com.cgi.lauri.movieRecommender.logic.MovieRecommenderLogic;
+import com.cgi.lauri.movieRecommender.mapper.CustomerMapper;
 import com.cgi.lauri.movieRecommender.mapper.MovieMapper;
+import com.cgi.lauri.movieRecommender.mapper.MovieRatingMapper;
+import com.cgi.lauri.movieRecommender.model.Customer;
 import com.cgi.lauri.movieRecommender.model.Movie;
 import com.cgi.lauri.movieRecommender.model.MovieRating;
+import com.cgi.lauri.movieRecommender.repository.CustomerRepository;
 import com.cgi.lauri.movieRecommender.repository.MovieRatingRepository;
 import com.cgi.lauri.movieRecommender.repository.MovieRepository;
 import lombok.AllArgsConstructor;
@@ -18,8 +22,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class MovieServiceImpl implements MovieService{
     private MovieRepository movieRepository;
-    private MovieRatingRepository movieRatingRepository;
     private MovieRecommenderLogic movieRecommenderLogic;
+    private CustomerServiceImpl customerService;
+    private MovieRatingServiceImpl movieRatingService;
     @Override
     public MovieDto createMovie(MovieDto movieDto) {
         Movie movie = MovieMapper.maptoMovie(movieDto);
@@ -74,8 +79,12 @@ public class MovieServiceImpl implements MovieService{
 
     @Override
     public List<MovieDto> getAllRecommendedMovies(Long customerId) {
-        List<MovieRating> ratings = movieRatingRepository.findAllByCustomer_Id(customerId);
-        List<Movie> recommendedMovies = movieRecommenderLogic.recommendedMovies(ratings);
+        Customer customer = CustomerMapper.maptoCustomer(customerService.getCustomerById(customerId));
+
+        List<MovieRating> ratings = movieRatingService.getAllRatingsByCustomerId(customerId).stream().map(movieRatingDto ->
+                MovieRatingMapper.mapToMovieRating(movieRatingDto)).collect(Collectors.toList());
+        List<Movie> allMovies = movieRepository.findAll();
+        List<Movie> recommendedMovies = movieRecommenderLogic.recommendedMovies(ratings,allMovies,customer);
         return recommendedMovies.stream().map((movie -> MovieMapper.mapToMovieDTO(movie))).
                 collect(Collectors.toList());
     }

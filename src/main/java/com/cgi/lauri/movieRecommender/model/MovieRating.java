@@ -28,6 +28,8 @@ public class MovieRating {
     private int rating;
 
     public MovieRating(Customer customer, Movie movie, int rating) {
-
+        this.customer = customer;
+        this.movie = movie;
+        this.rating = rating;
     }
 }

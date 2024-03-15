@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Date;
 import java.util.Set;
 
 @Getter
@@ -19,6 +20,7 @@ public class CustomerDto {
     private String lastName;
     private Set<MovieRating> ratings;
     private String userName;
+    private Date birthDate;
     //private String password;
     private String role;
 }

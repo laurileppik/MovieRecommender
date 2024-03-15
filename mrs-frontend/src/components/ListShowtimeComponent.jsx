@@ -109,7 +109,6 @@ const ListMovieComponent = () => {
             {ratings.length > 0 && (
                 <Link to={`/movies/${localStorage.getItem("customerId")}`}className="btn btn-secondary"> Soovita filme vaatamisajaloo põhjal.</Link> 
             )}
-            <Link to={`http://localhost:3000/login`} className="btn btn-primary">Login</Link>
             <p></p>
         </div>
     );
