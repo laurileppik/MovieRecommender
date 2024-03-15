@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.Optional;
 
 @CrossOrigin("*")
@@ -38,9 +39,10 @@ public class UserController {
     public ResponseEntity<AuthResponse> createUserHandler(@RequestBody Customer user)  {
         String email = user.getUserName();
         String password = user.getPassword();
-        String fullName = user.getFirstName();
-        String mobile = user.getLastName();
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
         String role = user.getRole();
+        Date date = user.getBirthDate();
 
         Optional<Customer> isEmailExist = userRepository.findByUserName(email);
         if (isEmailExist.isPresent()) {
@@ -49,10 +51,11 @@ public class UserController {
         }
         Customer createdUser = new Customer();
         createdUser.setUserName(email);
-        createdUser.setFirstName(fullName);
-        createdUser.setLastName(mobile);
+        createdUser.setFirstName(firstName);
+        createdUser.setLastName(lastName);
         createdUser.setRole(role);
         createdUser.setPassword(passwordEncoder.encode(password));
+        createdUser.setBirthDate(date);
 
         Customer savedUser = userRepository.save(createdUser);
         userRepository.save(savedUser);

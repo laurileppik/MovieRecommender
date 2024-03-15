@@ -7,8 +7,10 @@ import ShowtimeComponent from './components/ShowtimeComponent';
 import ScreenComponent from './components/ScreenComponent'
 import CustomerComponent from './components/CustomerComponent'
 import LoginPage from './components/LoginPage'
+import SignupComponent from './components/SignUpComponent'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
 
 function App() {
 
@@ -24,6 +26,7 @@ function App() {
             <Route path='/screens/:screenId' element={<ScreenComponent />} />
             <Route path='/customers/:customerID' element={<CustomerComponent />} />
             <Route path='/login' element={<LoginPage />} />
+            <Route path='/signup' element={<SignupComponent />} />
           </Routes>
         <FooterComponent />
       </BrowserRouter>

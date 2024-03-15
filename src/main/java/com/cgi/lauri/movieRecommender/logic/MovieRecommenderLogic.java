@@ -3,17 +3,15 @@ package com.cgi.lauri.movieRecommender.logic;
 import com.cgi.lauri.movieRecommender.model.Customer;
 import com.cgi.lauri.movieRecommender.model.Movie;
 import com.cgi.lauri.movieRecommender.model.MovieRating;
-import com.cgi.lauri.movieRecommender.repository.MovieRepository;
-import com.cgi.lauri.movieRecommender.service.MovieService;
-import com.cgi.lauri.movieRecommender.service.MovieServiceImpl;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 
 @Component
 public class MovieRecommenderLogic {
@@ -41,33 +39,33 @@ public class MovieRecommenderLogic {
         Random random = new Random();
         for (String genre: howManyRecommGenres.keySet()) {
             int howManyMovies = howManyRecommGenres.get(genre);
-            int howManyGenres= getFreqofGenre(genre,howManyMovies,allMovies);
+            List<Movie> correctGenreMovies = getcorrectGenreMovies(genre,howManyMovies,allMovies);
             for (int i = 0; i < howManyMovies; i++) {
-                if (howManyGenres<=0)
+                if (correctGenreMovies.isEmpty())
                     break;
-                int randomIndex = random.nextInt(howManyGenres);
-                recommendedMovies.add(allMovies.get(randomIndex));
-                allMovies.remove(randomIndex);
-                howManyGenres--;
+                int randomIndex = random.nextInt(correctGenreMovies.size());
+                recommendedMovies.add(correctGenreMovies.get(randomIndex));
+                correctGenreMovies.remove(randomIndex);
             }
         }
         return recommendedMovies;
     }
 
-    private int getFreqofGenre(String genre,int howManyMovies, List<Movie> allMovies) {
+    private List<Movie> getcorrectGenreMovies(String genre, int howManyMovies, List<Movie> allMovies) {
+        List<Movie> correctGenreMovies=new ArrayList<>();
         int count=0;
         for (Movie movie: allMovies) {
             if (count==howManyMovies)
-                return howManyMovies;
-            if (movie.getGenre().equals(genre))
+                return correctGenreMovies;
+            if (movie.getGenre().equals(genre)) {
+                correctGenreMovies.add(movie);
                 count++;
+            }
         }
-        return count;
+        return correctGenreMovies;
     }
 
     private HashMap<String,Integer> getQuantityOfRecommendedGenres(HashMap<String, Double> watchedGenresScore) {
-        //List<String> recommGenres = new ArrayList<>(watchedGenresScore.keySet());
-        //recommGenres.sort((a, b) -> watchedGenresScore.get(b).compareTo(watchedGenresScore.get(a)));
         HashMap<String,Integer> recommendation=new HashMap<>();
         //0.09=1 0.99=10
         double totalScore=0;
