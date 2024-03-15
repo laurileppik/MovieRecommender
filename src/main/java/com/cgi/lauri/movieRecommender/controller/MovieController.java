@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,8 +34,9 @@ public class MovieController {
 
     //Get all movies REST API
     @GetMapping
-    public ResponseEntity<List<MovieDto>> getAllMovies(@RequestParam(required = false) String genre, @RequestParam(required = false) Integer minAge,@RequestParam(required = false) String language) {
-        List<MovieDto> filteredMovieDtos = movieService.getFilteredMovies(genre, minAge,language);
+    public ResponseEntity<List<MovieDto>> getAllMovies(@RequestParam(required = false) String genre, @RequestParam(required = false) Integer minAge,
+                                                       @RequestParam(required = false) String language,@RequestParam(required = false) String date) {
+        List<MovieDto> filteredMovieDtos = movieService.getFilteredMovies(genre, minAge,language,date);
         System.out.println(filteredMovieDtos);
         return ResponseEntity.ok(filteredMovieDtos);
     }

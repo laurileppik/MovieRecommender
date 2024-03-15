@@ -1,13 +1,24 @@
 import React, {useEffect, useState} from 'react'
 import { listMovies } from '../services/MovieService'
+import { listRatings } from '../services/RatingService'
 
 const ListMovieComponent = () => {
 
     const [movies, setMovies] = useState([])
+    const [customerRatings, SetCustomer] = useState([])
 
     useEffect(() => {
         listMovies(localStorage.getItem("customerId")).then((response) => {
             setMovies(response.data);
+            console.log(response.data)
+        }).catch(error => {
+            console.error(error);
+        })
+    }, []) 
+
+    useEffect(() => {
+        listRatings(localStorage.getItem("customerId")).then((response) => {
+            SetCustomer(response.data);
             console.log(response.data)
         }).catch(error => {
             console.error(error);

@@ -12,11 +12,12 @@ const ListMovieComponent = () => {
     const [ratings, SetRatings] = useState([]);
     const [ageFilter, setAgeFilter] = useState('');
     const [languageFilter, setLanguageFilter] = useState('');
+    const [date, setDayFilter] = useState('');
 
     useEffect(() => {
         const fetchShowTimes = async () => {
             try {
-                const response = await listShowTimes(selectedGenre, ageFilter,languageFilter);
+                const response = await listShowTimes(selectedGenre, ageFilter,languageFilter,date);
                 setMovies(response.data);
             } catch (error) {
                 console.error(error);
@@ -24,7 +25,7 @@ const ListMovieComponent = () => {
         };
     
         fetchShowTimes();
-    }, [selectedGenre, ageFilter,languageFilter]);
+    }, [selectedGenre, ageFilter,languageFilter,date]);
 
     const handleLanguageChange = (event) => {
         setLanguageFilter(event.target.value);
@@ -36,6 +37,10 @@ const ListMovieComponent = () => {
 
     const handleAgeFilter = (event) => {
         setAgeFilter(event.target.value);
+    };
+
+    const handleDayFilter = (selectedDate) => {
+        setDayFilter(selectedDate);
     };
 
     useEffect(() => {
@@ -97,6 +102,22 @@ const ListMovieComponent = () => {
                     <option value='English'>English</option>
                 </select>
             </div>
+            <table className='table table-striped table-bordered'>
+                <thead>
+                    <tr>
+                        {
+                            //Tee 7ks tükiks, mapi i-le päev ja kuupäev
+                            [...Array(7)].map((_, i) => {
+                                const d = new Date();
+                                d.setDate(d.getDate() + i);
+                                const weekday = new Intl.DateTimeFormat('et-EE', { weekday: 'long' }).format(d);
+                                const date = d.toLocaleDateString('et-EE', { day: '2-digit', month: '2-digit' });
+                                return <th key={i}> <button onClick={() => handleDayFilter(date)}>{`${weekday} (${date})`}</button> </th>
+                            })
+                        }
+                    </tr>
+                </thead>
+            </table>
             <table className='table table-striped table-bordered'>
                 <thead>
                     <tr>

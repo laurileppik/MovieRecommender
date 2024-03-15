@@ -39,7 +39,9 @@ public class ApplicationConfig {
                             //authorize.requestMatchers("/**").hasRole("ADMIN");
                             //authorize.requestMatchers("/user/ratings/{userId}").authenticated().anyRequest().permitAll();
                             //authorize.requestMatchers("/api/showtimes/**", "/api/customers/register/**", "/api/movies/**","auth/signin").permitAll();
+                            authorize.requestMatchers("/auth/**", "/api/movies/**","/api/showtimes/**").permitAll();
                             authorize.requestMatchers("/api/**").authenticated().anyRequest().permitAll();
+                            //authorize.requestMatchers("/user/ratings/{customerId}").authenticated();
                         })
                 .addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
                 .csrf(csrf -> csrf.disable())

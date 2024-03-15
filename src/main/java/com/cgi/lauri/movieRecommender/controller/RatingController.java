@@ -18,9 +18,9 @@ public class RatingController {
     private MovieRatingService movieRatingService;
 
     @GetMapping("{id}")
-    //@PathVariable necessary because we want to pass id as movieId
-    public ResponseEntity<List<MovieRatingDto>> getRatingsById(@PathVariable("id") Long movieId) {
-        List<MovieRatingDto> ratings = movieRatingService.getAllRatingsByCustomerId(movieId);
+    //@PathVariable necessary because we want to pass id as customerId
+    public ResponseEntity<List<MovieRatingDto>> getRatingsById(@PathVariable("id") Long customerId) {
+        List<MovieRatingDto> ratings = movieRatingService.getAllRatingsByCustomerId(customerId);
         return ResponseEntity.ok(ratings);
     }
 }

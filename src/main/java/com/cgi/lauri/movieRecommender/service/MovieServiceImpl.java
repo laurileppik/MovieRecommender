@@ -15,6 +15,10 @@ import com.cgi.lauri.movieRecommender.repository.MovieRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Year;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -74,24 +78,39 @@ public class MovieServiceImpl implements MovieService{
     }
 
     @Override
-    public List<MovieDto> getFilteredMovies(String genre,Integer minAge,String language) {
+    public List<MovieDto> getFilteredMovies(String genre, Integer minAge, String language, String date) {
         List<Predicate<Movie>> filters = new ArrayList<>();
+
         if (genre != null) {
             filters.add(movie -> movie.getGenre().equals(genre));
         }
         if (minAge != null) {
             filters.add(movie -> movie.getMinimumAge() <= minAge);
         }
-        if (language!=null) {
+        if (language != null) {
             filters.add(movie -> movie.getLanguage().equals(language));
         }
-
         Predicate<Movie> combinedFilter = filters.stream().reduce(Predicate::and).orElse(movie -> true);
-        return movieRepository.findAll().stream()
+
+        List<MovieDto> filteredMovies = movieRepository.findAll().stream()
                 .filter(combinedFilter)
                 .map(MovieMapper::mapToMovieDTO)
                 .collect(Collectors.toList());
+
+        if (date != null) {
+            String dateWithYear = date + "." + Year.now();
+            LocalDate formattedDate = LocalDate.parse(dateWithYear, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+
+            for (MovieDto movie : filteredMovies) {
+                movie.setShowtimes(movie.getShowtimes().stream()
+                        .filter(showtime -> showtime.getStartTime().toLocalDate().equals(formattedDate))
+                        .collect(Collectors.toList()));
+            }
+        }
+
+        return filteredMovies;
     }
+
 
     @Override
     public List<MovieDto> getAllRecommendedMovies(Long customerId) {
