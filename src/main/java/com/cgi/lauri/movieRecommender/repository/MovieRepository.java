@@ -18,4 +18,21 @@ public interface MovieRepository extends JpaRepository<Movie,Long> {
     List<Movie> findMoviesWithAgeFilter(@Param("age") int age);
 
     Optional<Movie> findByName(String name);
+    @Query("""
+             SELECT DISTINCT m.genre
+             FROM Movie m
+             ORDER BY m.genre ASC""")
+    List<String> findAllGenres();
+
+    @Query("""
+            SELECT DISTINCT m.minimumAge
+            FROM Movie m
+            ORDER BY m.minimumAge ASC""")
+    List<String> findAllAges();
+
+    @Query("""
+            SELECT DISTINCT m.language
+            FROM Movie m
+            ORDER BY m.language ASC""")
+    List<String> findAllLanguages();
 }

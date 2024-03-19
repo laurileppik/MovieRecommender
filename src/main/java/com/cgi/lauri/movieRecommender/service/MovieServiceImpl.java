@@ -131,6 +131,21 @@ public class MovieServiceImpl implements MovieService{
         return movie.getId();
     }
 
+    @Override
+    public List<String> getAllGenres() {
+        return movieRepository.findAllGenres();
+    }
+
+    @Override
+    public List<String> getAllAges() {
+        return movieRepository.findAllAges();
+    }
+
+    @Override
+    public List<String> getAllLanguages() {
+        return movieRepository.findAllLanguages();
+    }
+
     /**@Override
     public MovieDto addScreensToMovie(Long movieId, List<Long> screenIds) {
         Movie movie = movieRepository.findById(movieId).orElseThrow(

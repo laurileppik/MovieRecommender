@@ -17,4 +17,10 @@ public interface MovieService {
     List<MovieDto> getAllRecommendedMovies(Long customerId);
     //MovieDto addScreensToMovie(Long movieId, List<Long> screenIds);
     Long getMovieIdByName(String name);
+
+    List<String> getAllGenres();
+
+    List<String> getAllAges();
+
+    List<String> getAllLanguages();
 }

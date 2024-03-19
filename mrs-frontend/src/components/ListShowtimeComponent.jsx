@@ -4,6 +4,7 @@ import { getCustomer } from '../services/CustomerService';
 import { listRatings } from '../services/RatingService';
 
 import { Link } from 'react-router-dom'
+import { getGenres,getAges,getLanguages } from '../services/MovieService';
 
 const ListMovieComponent = () => {
     const [movies, setMovies] = useState([]);
@@ -13,6 +14,9 @@ const ListMovieComponent = () => {
     const [ageFilter, setAgeFilter] = useState('');
     const [languageFilter, setLanguageFilter] = useState('');
     const [date, setDayFilter] = useState('');
+    const [genres, setGenres] = useState([]);
+    const [ages, setAges] = useState([]);
+    const [languages, setLanguages] = useState([]);
 
     useEffect(() => {
         const fetchShowTimes = async () => {
@@ -26,6 +30,45 @@ const ListMovieComponent = () => {
     
         fetchShowTimes();
     }, [selectedGenre, ageFilter,languageFilter,date]);
+
+    useEffect(() => {
+        const fetchGenres = async () => {
+            try {
+                const response = await getGenres();
+                setGenres(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        
+        fetchGenres();
+    }, []);
+
+    useEffect(() => {
+        const fetchAges = async () => {
+            try {
+                const response = await getAges();
+                setAges(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        
+        fetchAges();
+    }, []);
+
+    useEffect(() => {
+        const fetchLanguages = async () => {
+            try {
+                const response = await getLanguages();
+                setLanguages(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        
+        fetchLanguages();
+    }, []);
 
     const handleLanguageChange = (event) => {
         setLanguageFilter(event.target.value);
@@ -58,6 +101,8 @@ const ListMovieComponent = () => {
         fetchRatings();
     }, []);
 
+
+
     useEffect(() => {
         const fetchCustomer = async() => {
             try {
@@ -79,27 +124,28 @@ const ListMovieComponent = () => {
             <div className='genre-dropdown'>
                 <label htmlFor='genre'>Select Genre:</label>
                 <select id='genre' onChange={handleGenreChange} value={selectedGenre}>
-                    <option value=''>All Genres</option>
-                    <option value='Action'>Action</option>
-                    <option value='Comedy'>Comedy</option>
-                    <option value='Drama'>Drama</option>
+                <option value=''>All Genres</option>
+                    {genres.map(genre => (
+                        <option key={genre} value={genre}>{genre}</option>
+                    ))}
                 </select>
             </div>
             <div className='age-filter'>
                 <label htmlFor='age'>Select Age:</label>
                 <select id='age' onChange={handleAgeFilter} value={ageFilter}>
-                    <option value=''>All ages</option>
-                    <option value='12'>12</option>
-                    <option value='14'>14</option>
-                    <option value='16'>16</option>
+                <option value=''>All ages</option>
+                    {ages.map(age => (
+                        <option key = {age} value = {age}>{age}</option>
+                    ))}
                 </select>
             </div>
             <div className='lang-filter'>
                 <label htmlFor='language'>Select Language:</label>
                 <select id='language' onChange={handleLanguageChange} value={languageFilter}>
                     <option value=''>All languages</option>
-                    <option value='Estonian'>Estonian</option>
-                    <option value='English'>English</option>
+                    {languages.map(language => (
+                        <option key = {language} value={language}>{language}</option>
+                    ))}
                 </select>
             </div>
             <table className='table table-striped table-bordered'>

@@ -49,7 +49,23 @@ public class MovieController {
         return ResponseEntity.ok(filteredMovieDtos);
     }
 
+    @GetMapping("/genres")
+    public ResponseEntity<List<String>> getAllGenres() {
+        List<String> movieGenres = movieService.getAllGenres();
+        return ResponseEntity.ok(movieGenres);
+    }
 
+    @GetMapping("/ages")
+    public ResponseEntity<List<String>> getAllAges() {
+        List<String> movieAges = movieService.getAllAges();
+        return ResponseEntity.ok(movieAges);
+    }
+
+    @GetMapping("/languages")
+    public ResponseEntity<List<String>> getAllLanguages() {
+        List<String> movieLanguages = movieService.getAllLanguages();
+        return ResponseEntity.ok(movieLanguages);
+    }
 
     @GetMapping("/sorted/{id}")
     public ResponseEntity<List<MovieDto>> getAllRecommendedMovies(@PathVariable("id") Long customerId) {
