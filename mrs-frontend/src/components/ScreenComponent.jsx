@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { getScreen } from '../services/ScreenService';
+import availableChairImage from '../assets/images/availableChairImage.png';
+import recommChairImage from '../assets/images/recommChair.png';
 
 import { Link } from 'react-router-dom'
 
@@ -44,7 +46,7 @@ const ScreenComponent = () => {
         }
         rowSeats.push(
           <td key={j} className={seatStatus}>
-            Seat {seatIndex + 1}
+            <img src={seatStatus === 'recommend' ? recommChairImage : availableChairImage} alt={`Seat ${seatIndex + 1}`} />
           </td>
         );
       }
@@ -58,15 +60,10 @@ const ScreenComponent = () => {
   };
 
   return (
-    <div>
+    <div className='screencontainer'>
       <div className="seating-plan-container">
         {screen && (
           <div>
-            <p>{screen.id}</p>
-            <p>{screen.noOfSeats}</p>
-            <p>{screen.rows}</p>
-            <p>{screen.seatsInRow}</p>
-            <p>{screen.occupiedSeats}</p>
             {renderSeatingPlan()}
             <p>Saal {screen.id}</p>
           </div>

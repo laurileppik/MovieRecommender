@@ -8,6 +8,11 @@
     color: white;
     margin-top: 20px;
 }
+
+.available img, .occupied img, .recommend img {
+    width: 40px;
+    height: 35px;
+  }
   
 .available {
     background-color: green;
@@ -17,12 +22,22 @@
     background-color: red;
 }
 
+
+
+.recommend{
+    -webkit-text-stroke-color: blue;
+    background-color: yellow;
+}
+
 .seating-plan-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.recommend{
-    -webkit-text-stroke-color: blue;
+.screencontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

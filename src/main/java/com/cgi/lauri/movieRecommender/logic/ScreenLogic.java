@@ -75,14 +75,10 @@ public class ScreenLogic {
                 if (count == noOfTickets) {
                     return seats;
                 }
-            } else {
-                count=0;
-                seats.clear();
-                break;
-            }
+            } else break;
         }
 
-        for (int i = index; i >= 0; i--) {
+        for (int i = index-1; i >= 0; i--) {
             if (occupiedSeatsInRow.get(i)) {
                 seats.add(0,i);
                 count++;
