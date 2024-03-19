@@ -44,6 +44,8 @@ public class ScreenLogic {
                     if (!recommendedSeats.isEmpty()) {
                         return recommendedSeats.stream().map(mapper -> seatsInRow * seat[0]+mapper)
                                 .collect(Collectors.toList());
+                    } else {
+
                     }
                     if (backupCounter>0){
                         backupSeats.add(seatIndex);

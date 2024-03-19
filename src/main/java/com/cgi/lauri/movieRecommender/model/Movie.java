@@ -45,7 +45,7 @@ public class Movie {
     private Set<MovieRating> ratings;
 
     @Column(name="imdb_rating")
-    private Integer imdbRating;
+    private Double imdbRating;
 
     /**@ManyToMany
     @JoinTable(

@@ -2,6 +2,7 @@ package com.cgi.lauri.movieRecommender.controller;
 
 import com.cgi.lauri.movieRecommender.dto.MovieDto;
 import com.cgi.lauri.movieRecommender.service.MovieService;
+import com.cgi.lauri.movieRecommender.service.OmdbService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,12 @@ import java.util.Objects;
 @RequestMapping("/api/movies")
 public class MovieController {
     private MovieService movieService;
+    private OmdbService omdbService;
     //Create movie REST API
     @PostMapping
     public ResponseEntity<MovieDto> createMovie(@RequestBody MovieDto movieDto) {
+        String imdbRating = omdbService.fetchImdbRating(movieDto.getName());
+        movieDto.setImdbRating(Double.valueOf(imdbRating));
         MovieDto savedMovie = movieService.createMovie(movieDto);
         return new ResponseEntity<>(savedMovie, HttpStatus.CREATED);
     }
