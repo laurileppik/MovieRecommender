@@ -47,41 +47,11 @@ const AddMovieComponent = () => {
                     />
                 </div>
                 <div>
-                    <label>Genre:</label>
-                    <input
-                        type="text"
-                        name="genre"
-                        value={movie.genre}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Language:</label>
-                    <input
-                        type="text"
-                        name="language"
-                        value={movie.language}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
                     <label>Minimum Age:</label>
                     <input
                         type="number"
                         name="minimumAge"
                         value={movie.minimumAge}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>IMDB Rating:</label>
-                    <input
-                        type="number"
-                        name="imdbRating"
-                        value={movie.imdbRating}
                         onChange={handleChange}
                         required
                     />

@@ -19,15 +19,37 @@ public class OmdbService {
     }
 
     public String fetchImdbRating(String title) {
-        String url = UriComponentsBuilder.fromHttpUrl("http://www.omdbapi.com/")
-                .queryParam("t", title)
-                .queryParam("apikey", apiKey)
-                .toUriString().replace("%20", "+");
+        String url = buildOmdbApiUrl(title);
         OmdbResponse response = restTemplate.getForObject(url, OmdbResponse.class);
         if (response != null && response.getImdbRating() != null) {
-
             return response.getImdbRating();
         }
         return "N/A";
+    }
+
+    public String fetchGenre(String title) {
+        String url = buildOmdbApiUrl(title);
+        OmdbResponse response = restTemplate.getForObject(url, OmdbResponse.class);
+        if (response != null && response.getGenre() != null) {
+            String[] splitGenre = response.getGenre().split(", ");
+            return splitGenre[0];
+        }
+        return "N/A";
+    }
+    public String fetchLanguage(String title) {
+        String url = buildOmdbApiUrl(title);
+        OmdbResponse response = restTemplate.getForObject(url, OmdbResponse.class);
+        if (response != null && response.getLanguage() != null) {
+            String[] splitLanguage = response.getLanguage().split(", ");
+            return (!splitLanguage[0].equals("None")) ? splitLanguage[0] : splitLanguage[1];
+        }
+        return "N/A";
+    }
+
+    private String buildOmdbApiUrl(String title) {
+        return UriComponentsBuilder.fromHttpUrl("http://www.omdbapi.com/")
+                .queryParam("t", title)
+                .queryParam("apikey", apiKey)
+                .toUriString().replace("%20", "+");
     }
 }

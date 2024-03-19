@@ -23,7 +23,11 @@ public class MovieController {
     @PostMapping
     public ResponseEntity<MovieDto> createMovie(@RequestBody MovieDto movieDto) {
         String imdbRating = omdbService.fetchImdbRating(movieDto.getName());
+        String genre = omdbService.fetchGenre(movieDto.getName());
+        String language = omdbService.fetchLanguage(movieDto.getName());
         movieDto.setImdbRating(Double.valueOf(imdbRating));
+        movieDto.setGenre(genre);
+        movieDto.setLanguage(language);
         MovieDto savedMovie = movieService.createMovie(movieDto);
         return new ResponseEntity<>(savedMovie, HttpStatus.CREATED);
     }
@@ -44,6 +48,8 @@ public class MovieController {
         System.out.println(filteredMovieDtos);
         return ResponseEntity.ok(filteredMovieDtos);
     }
+
+
 
     @GetMapping("/sorted/{id}")
     public ResponseEntity<List<MovieDto>> getAllRecommendedMovies(@PathVariable("id") Long customerId) {

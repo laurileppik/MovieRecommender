@@ -130,6 +130,7 @@ const ListMovieComponent = () => {
                         <th>Start time</th>
                         <th>End time</th>
                         <th>Screen</th>
+                        <th>Imdb rating</th>
                         <th></th> 
                     </tr>
                 </thead>
@@ -146,6 +147,7 @@ const ListMovieComponent = () => {
                                 <td>{time.startTime}</td>
                                 <td>{time.endTime}</td>
                                 <td>{time.screen.id}</td>
+                                <td>{movie.imdbRating}</td>
                                 <td>
                                     <Link to={`/showtimes/${time.id}`} className="btn btn-primary">Osta piletid</Link>
                                 </td> 

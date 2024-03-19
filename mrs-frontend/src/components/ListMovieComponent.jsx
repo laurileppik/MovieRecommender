@@ -36,6 +36,7 @@ const ListMovieComponent = () => {
                     <th>Genre</th>
                     <th>Language</th>
                     <th>Minimum age</th>
+                    <th>Imdb rating</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,6 +48,7 @@ const ListMovieComponent = () => {
                             <td>{movie.genre}</td>
                             <td>{movie.language}</td>
                             <td>{movie.minimumAge}</td>
+                            <td>{movie.imdbRating}</td>
                         </tr>)
                 }
                 <tr>
