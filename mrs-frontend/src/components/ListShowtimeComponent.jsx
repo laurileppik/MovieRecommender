@@ -155,9 +155,8 @@ const ListMovieComponent = () => {
                 </tbody>
             </table>
             {ratings.length > 0 && (
-                <Link to={`/movies/${localStorage.getItem("customerId")}`}className="btn btn-secondary"> Soovita filme vaatamisajaloo põhjal.</Link> 
+                <Link to={`/movies/${localStorage.getItem("customerId")}`}className="btn btn-secondary" style={{ marginBottom: "100px" }}> Soovita filme vaatamisajaloo põhjal.</Link> 
             )}
-            <p></p>
         </div>
     );
 };

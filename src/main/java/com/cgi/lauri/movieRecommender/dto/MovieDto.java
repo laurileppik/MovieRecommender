@@ -25,4 +25,5 @@ public class MovieDto {
     private Integer minimumAge;
     //private List<Screen> screens;
     private Set<MovieRating> ratings;
+    private Integer imdbRating;
 }

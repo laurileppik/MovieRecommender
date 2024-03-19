@@ -1,6 +1,7 @@
 package com.cgi.lauri.movieRecommender.service;
 
 import com.cgi.lauri.movieRecommender.dto.MovieDto;
+import com.cgi.lauri.movieRecommender.dto.ShowtimeDto;
 
 import java.util.List;
 
@@ -15,4 +16,5 @@ public interface MovieService {
 
     List<MovieDto> getAllRecommendedMovies(Long customerId);
     //MovieDto addScreensToMovie(Long movieId, List<Long> screenIds);
+    Long getMovieIdByName(String name);
 }

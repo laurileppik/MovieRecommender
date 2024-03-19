@@ -8,6 +8,8 @@ import ScreenComponent from './components/ScreenComponent'
 import CustomerComponent from './components/CustomerComponent'
 import LoginPage from './components/LoginPage'
 import SignupComponent from './components/SignUpComponent'
+import AddMovieComponent from './components/admin/AddMovieComponent'
+import AddShowTimesComponent from './components/admin/AddShowTimesComponent'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
@@ -27,6 +29,8 @@ function App() {
             <Route path='/customers/:customerID' element={<CustomerComponent />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/signup' element={<SignupComponent />} />
+            <Route path='/admin/addmovie' element={<AddMovieComponent />} />
+            <Route path='/admin/addshowtime' element={<AddShowTimesComponent />} />
           </Routes>
         <FooterComponent />
       </BrowserRouter>

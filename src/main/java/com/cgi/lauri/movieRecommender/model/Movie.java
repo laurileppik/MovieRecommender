@@ -44,6 +44,9 @@ public class Movie {
     @JsonIgnore
     private Set<MovieRating> ratings;
 
+    @Column(name="imdb_rating")
+    private Integer imdbRating;
+
     /**@ManyToMany
     @JoinTable(
             name = "movie_screen",

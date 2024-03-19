@@ -21,6 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ShowtimeDto {
     private Long id;
+    private String name;
 
     private Long movieId;
 
@@ -29,4 +30,12 @@ public class ShowtimeDto {
     private LocalDateTime startTime;
 
     private LocalDateTime endTime;
+
+    public ShowtimeDto(Long id, Long movieId, Long screenId, LocalDateTime startTime, LocalDateTime endTime) {
+        this.id = id;
+        this.movieId = movieId;
+        this.screenId = screenId;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
 }

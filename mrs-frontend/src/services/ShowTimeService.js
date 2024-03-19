@@ -28,3 +28,5 @@ export const listShowTimes = (selectedGenre, ageFilter, languageFilter, dateFilt
 };
 
 export const getShowTime = (showId) => axios.get(REST_API_BASE_URL_SHOW + '/' + showId, { headers });
+
+export const setShowTime = (show) => axios.post(REST_API_BASE_URL_SHOW, show, {headers});

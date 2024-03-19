@@ -11,3 +11,7 @@ export const listMovies = (customerId) => {
 }
 
 export const getMovie = (movieId) => axios.get(REST_API_BASE_URL + '/' + movieId, {headers});
+
+export const setMovie = (movie) => {
+  return axios.post(REST_API_BASE_URL, movie, { headers });
+};

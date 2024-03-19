@@ -1,14 +1,18 @@
 package com.cgi.lauri.movieRecommender.security;
 
+import com.cgi.lauri.movieRecommender.service.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -25,10 +29,8 @@ public class ApplicationConfig {
 
     @Autowired
     private CustomerDetailService userDetailService;
-
-    public ApplicationConfig(CustomerDetailService userDetailsService) {
-        this.userDetailService = userDetailsService;
-    }
+    @Autowired
+    private UserServiceImplementation customUserDetails;
 
     @SuppressWarnings("deprecation")
     @Bean
@@ -36,10 +38,10 @@ public class ApplicationConfig {
         http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeRequests(
                         authorize -> {
-                            //authorize.requestMatchers("/**").hasRole("ADMIN");
+                            authorize.requestMatchers("/auth/**").permitAll();
+                            //authorize.requestMatchers("/**").hasAuthority("ADMIN");
                             //authorize.requestMatchers("/user/ratings/{userId}").authenticated().anyRequest().permitAll();
                             //authorize.requestMatchers("/api/showtimes/**", "/api/customers/register/**", "/api/movies/**","auth/signin").permitAll();
-                            authorize.requestMatchers("/auth/**", "/api/movies/**","/api/showtimes/**").permitAll();
                             authorize.requestMatchers("/api/**").authenticated().anyRequest().permitAll();
                             //authorize.requestMatchers("/user/ratings/{customerId}").authenticated();
                         })

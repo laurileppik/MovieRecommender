@@ -90,8 +90,8 @@ public class MovieServiceImpl implements MovieService{
         if (language != null) {
             filters.add(movie -> movie.getLanguage().equals(language));
         }
-        Predicate<Movie> combinedFilter = filters.stream().reduce(Predicate::and).orElse(movie -> true);
 
+        Predicate<Movie> combinedFilter = filters.stream().reduce(Predicate::and).orElse(movie -> true);
         List<MovieDto> filteredMovies = movieRepository.findAll().stream()
                 .filter(combinedFilter)
                 .map(MovieMapper::mapToMovieDTO)
@@ -100,7 +100,6 @@ public class MovieServiceImpl implements MovieService{
         if (date != null) {
             String dateWithYear = date + "." + Year.now();
             LocalDate formattedDate = LocalDate.parse(dateWithYear, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-
             for (MovieDto movie : filteredMovies) {
                 movie.setShowtimes(movie.getShowtimes().stream()
                         .filter(showtime -> showtime.getStartTime().toLocalDate().equals(formattedDate))
@@ -122,6 +121,14 @@ public class MovieServiceImpl implements MovieService{
         List<Movie> recommendedMovies = movieRecommenderLogic.recommendedMovies(ratings,allMovies,customer);
         return recommendedMovies.stream().map((movie -> MovieMapper.mapToMovieDTO(movie))).
                 collect(Collectors.toList());
+    }
+
+    @Override
+    public Long getMovieIdByName(String name) {
+        Movie movie = movieRepository.findByName(name).orElseThrow(
+                () -> new ResourceNotFoundException("Movie does not exist with the given name " + name)
+        );
+        return movie.getId();
     }
 
     /**@Override

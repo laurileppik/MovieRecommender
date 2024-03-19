@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { getScreen } from '../services/ScreenService';
 
+import { Link } from 'react-router-dom'
+
 const ScreenComponent = () => {
   const { screenId } = useParams();
   const [screen, setScreen] = useState(null);
@@ -56,19 +58,22 @@ const ScreenComponent = () => {
   };
 
   return (
-    <div className="seating-plan-container">
-      {screen && (
-        <div>
-          <p>{screen.id}</p>
-          <p>{screen.noOfSeats}</p>
-          <p>{screen.rows}</p>
-          <p>{screen.seatsInRow}</p>
-          <p>{screen.occupiedSeats}</p>
-          {renderSeatingPlan()}
-          <p>Saal {screen.id}</p>
-        </div>
-      )}
-    </div>
+    <div>
+      <div className="seating-plan-container">
+        {screen && (
+          <div>
+            <p>{screen.id}</p>
+            <p>{screen.noOfSeats}</p>
+            <p>{screen.rows}</p>
+            <p>{screen.seatsInRow}</p>
+            <p>{screen.occupiedSeats}</p>
+            {renderSeatingPlan()}
+            <p>Saal {screen.id}</p>
+          </div>
+        )}
+      </div>
+    <Link to={`/showtimes/`} className="btn btn-primary">Tühista</Link>
+  </div>
   );
 };
 

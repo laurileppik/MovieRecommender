@@ -58,7 +58,7 @@ public class SecurityConfiguration {
                 .build();
     }
 
-    //@Bean
+    @Bean
     public UserDetailsService userDetailsService(){
         return userDetailService;
     }
