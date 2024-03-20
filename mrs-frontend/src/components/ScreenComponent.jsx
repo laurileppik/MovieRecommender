@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation,useNavigate } from 'react-router-dom';
 import { getScreen } from '../services/ScreenService';
+import { setMovieRating } from '../services/RatingService';
 import availableChairImage from '../assets/images/availableChairImage.png';
 import recommChairImage from '../assets/images/recommChair.png';
+
 
 import { Link } from 'react-router-dom'
 
@@ -11,10 +13,16 @@ const ScreenComponent = () => {
   const [screen, setScreen] = useState(null);
   const [seats, setSeats] = useState([]);
   const [recommSeats, setRecommSeats] = useState([]);
-
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const ticketCount = queryParams.get('ticketCount');
+  const movieId = queryParams.get('movieId');
+  const navigate = useNavigate();
+
+  const [movieRating, setRating] = useState({
+    movieId: movieId,
+    customerId: localStorage.getItem('customerId'),
+});
 
   useEffect(() => {
     const fetchScreen = async () => {
@@ -30,6 +38,18 @@ const ScreenComponent = () => {
 
     fetchScreen();
   }, [screenId, ticketCount]);
+
+  const handleMovieRating = async (e) => {
+    e.preventDefault();
+    try {
+      await setMovieRating(movieRating);
+      alert('Rating added successfully');
+      navigate('/');
+    }
+    catch(error) {
+      alert(error.message);
+    }
+  };
 
   const renderSeatingPlan = () => {
     if (!screen) return null;
@@ -70,7 +90,7 @@ const ScreenComponent = () => {
         )}
       </div>
     <Link to={`/showtimes/`} className="btn btn-primary">Tühista</Link>
-    <Link to={`/`} className="btn btn-primary">Kinnita</Link>
+    <Link to={`/`} className="btn btn-primary" onClick={handleMovieRating}>Kinnita</Link>
   </div>
   );
 };

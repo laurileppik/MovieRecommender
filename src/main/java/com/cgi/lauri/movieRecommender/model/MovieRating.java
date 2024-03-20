@@ -1,10 +1,7 @@
 package com.cgi.lauri.movieRecommender.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -13,7 +10,7 @@ import lombok.Setter;
 @Entity
 public class MovieRating {
     @EmbeddedId
-    private MovieRatingKey id;
+    private MovieRatingKey id = new MovieRatingKey();
 
     @ManyToOne
     @MapsId("customerId")
@@ -25,11 +22,22 @@ public class MovieRating {
     @JoinColumn(name = "movie_id")
     private Movie movie;
 
-    private int rating;
+    private Integer rating;
 
-    public MovieRating(Customer customer, Movie movie, int rating) {
+    public MovieRating(Customer customer, Movie movie) {
+        this.customer = customer;
+        this.movie = movie;
+    }
+
+    public MovieRating(Customer customer, Movie movie, Integer rating) {
         this.customer = customer;
         this.movie = movie;
         this.rating = rating;
+    }
+
+    public MovieRating(MovieRatingKey id, Customer customer, Movie movie) {
+        this.id = id;
+        this.customer = customer;
+        this.movie = movie;
     }
 }
