@@ -10,7 +10,7 @@ const AddMovieComponent = () => {
         minimumAge: '',
         imdbRating: '',
     });
-
+    const [suggestedMovies, setSuggestedMovies] = useState([]);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -19,6 +19,31 @@ const AddMovieComponent = () => {
             ...movie,
             [name]: value,
         });
+        if (name === 'name') {
+            handleSuggestion(value);
+        }
+    };
+
+    const handleSuggestion = async (query) => {
+        try {
+            const response = await fetch(`https://www.omdbapi.com/?apikey=fc0dea0b&s=${query}`);
+            const data = await response.json();
+            if (data.Search) {
+                setSuggestedMovies(data.Search);
+            } else {
+                setSuggestedMovies([]);
+            }
+        } catch (error) {
+            console.error('Error fetching movie suggestions:', error);
+        }
+    };
+
+    const handleSuggestionClick = (movie) => {
+        setMovieState({
+            ...movie,
+            name: movie.Title,
+        });
+        setSuggestedMovies([]);
     };
 
     const handleSubmit = async (e) => {
@@ -45,6 +70,16 @@ const AddMovieComponent = () => {
                         onChange={handleChange}
                         required
                     />
+                    {suggestedMovies.length > 0 && (
+                        <div style={{ marginTop: '5px' }}>
+                            {suggestedMovies.map((movie) => (
+                                <button key={movie.imdbID} type="button" onClick={() => handleSuggestionClick(movie)}
+                                style={{ cursor: 'pointer', display: 'block', marginBottom: '5px' }}>
+                                    {movie.Title}
+                                </button>
+                            ))}
+                        </div>
+                    )}
                 </div>
                 <div>
                     <label>Minimum Age:</label>

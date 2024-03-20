@@ -70,6 +70,7 @@ const ScreenComponent = () => {
         )}
       </div>
     <Link to={`/showtimes/`} className="btn btn-primary">Tühista</Link>
+    <Link to={`/`} className="btn btn-primary">Kinnita</Link>
   </div>
   );
 };

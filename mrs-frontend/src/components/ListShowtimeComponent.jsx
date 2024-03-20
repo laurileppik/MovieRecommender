@@ -24,7 +24,6 @@ const ListShowtimeComponent = () => {
     useEffect(() => {
         const fetchShowTimes = async () => {
             try {
-                console.log("aaaaa   " + filterMovieId)
                 const response = await listShowTimes(selectedGenre, ageFilter,languageFilter,date,filterMovieId);
                 setMovies(response.data);
             } catch (error) {
@@ -171,8 +170,6 @@ const ListShowtimeComponent = () => {
             <table className='table table-striped table-bordered'>
                 <thead>
                     <tr>
-                        <th>Showtime Id</th>
-                        <th>Movie Id</th>
                         <th>Movie Name</th>
                         <th>Genre</th>
                         <th>Language</th>
@@ -188,14 +185,12 @@ const ListShowtimeComponent = () => {
                     {movies.map(movie =>
                         movie.showtimes.map(time =>
                             <tr key={time.id}>
-                                <td>{time.id}</td>
-                                <td>{movie.id}</td>
                                 <td>{movie.name}</td>
                                 <td>{movie.genre}</td>
                                 <td>{movie.language}</td>
                                 <td>{movie.minimumAge}</td>
-                                <td>{time.startTime}</td>
-                                <td>{time.endTime}</td>
+                                <td>{new Date(time.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}</td>
+                                <td>{new Date(time.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}</td>
                                 <td>{time.screen.id}</td>
                                 <td>{movie.imdbRating}</td>
                                 <td>

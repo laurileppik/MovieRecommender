@@ -32,7 +32,6 @@ const ListMovieComponent = () => {
         <table className='table table-striped table-bordered'>
             <thead>
                 <tr>
-                    <th>Movie Id</th>
                     <th>Movie Name</th>
                     <th>Genre</th>
                     <th>Language</th>
@@ -45,7 +44,6 @@ const ListMovieComponent = () => {
                 {
                     movies.map(movie => 
                         <tr key={movie.id}>
-                            <td>{movie.id}</td>
                             <td>{movie.name}</td>
                             <td>{movie.genre}</td>
                             <td>{movie.language}</td>

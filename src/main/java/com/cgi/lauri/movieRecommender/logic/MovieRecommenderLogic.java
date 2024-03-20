@@ -8,10 +8,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Component
 public class MovieRecommenderLogic {
@@ -21,11 +18,11 @@ public class MovieRecommenderLogic {
         filterByAge(allMovies,customer.getBirthDate());
         //Filter movies the user has seen
         filterByAlreadySeen(ratings,allMovies);
-        //Set<String> allGenres = allMovies.stream().map((Movie::getGenre)).collect(Collectors.toSet());
         //Count all watched genres into a Hashmap
         HashMap<String,Integer> watchedGenresCounted = countWatchedGenres(ratings);
-        //Watched score 1 ==-2, 2==-1 ...
-        HashMap<String, Double> watchedGenresScore = assignGenresScore(ratings);
+        //Watched score
+        //return double[2]
+        HashMap<String, Double> watchedGenresScore = assignGenresByQuantityScore(ratings, watchedGenresCounted);
         //Assign multipliers
         addMultiplierToScores(watchedGenresCounted,watchedGenresScore);
         //Get how many of each genre to return
@@ -36,22 +33,18 @@ public class MovieRecommenderLogic {
 
     private List<Movie> getRecommendedMovies(HashMap<String,Integer> howManyRecommGenres, List<Movie> allMovies) {
         List<Movie> recommendedMovies = new ArrayList<>();
-        Random random = new Random();
         for (String genre: howManyRecommGenres.keySet()) {
             int howManyMovies = howManyRecommGenres.get(genre);
             List<Movie> correctGenreMovies = getcorrectGenreMovies(genre,howManyMovies,allMovies);
-            for (int i = 0; i < howManyMovies; i++) {
-                if (correctGenreMovies.isEmpty())
-                    break;
-                int randomIndex = random.nextInt(correctGenreMovies.size());
-                recommendedMovies.add(correctGenreMovies.get(randomIndex));
-                correctGenreMovies.remove(randomIndex);
+            while (!correctGenreMovies.isEmpty()) {
+                recommendedMovies.add(correctGenreMovies.removeFirst());
             }
         }
         return recommendedMovies;
     }
 
     private List<Movie> getcorrectGenreMovies(String genre, int howManyMovies, List<Movie> allMovies) {
+        allMovies.sort((m1, m2) -> Double.compare(m2.getImdbRating(), m1.getImdbRating()));
         List<Movie> correctGenreMovies=new ArrayList<>();
         int count=0;
         for (Movie movie: allMovies) {
@@ -81,24 +74,25 @@ public class MovieRecommenderLogic {
         return recommendation;
     }
 
-    private void addMultiplierToScores(HashMap<String,Integer> watchedGenresCounted, HashMap<String, Double> watchedGenresScore) {
-        List<String> sortedGenres = new ArrayList<>(watchedGenresCounted.keySet());
-        sortedGenres.sort((a, b) -> watchedGenresCounted.get(b).compareTo(watchedGenresCounted.get(a)));
-        String genre = sortedGenres.get(0);
-        watchedGenresScore.put(genre,watchedGenresScore.get(genre)*1.5);
-        for (int i = 1; i < sortedGenres.size(); i++) {
-            genre=sortedGenres.get(i);
+    private void addMultiplierToScores(HashMap<String, Integer> watchedGenresCounted, HashMap<String, Double> watchedGenresScore) {
+        List<Map.Entry<String, Integer>> entries = new ArrayList<>(watchedGenresCounted.entrySet());
+        entries.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+        for (Map.Entry<String, Integer> entry : entries) {
+            String genre = entry.getKey();
             double multiplier;
-            if (i==1)
-                multiplier=1.25;
-            else if (i==2)
-                multiplier=1.1;
+            if (genre.equals(entries.get(0).getKey()))
+                multiplier = 1.5;
+            else if (genre.equals(entries.get(1).getKey()))
+                multiplier = 1.25;
+            else if (genre.equals(entries.get(2).getKey()))
+                multiplier = 1.1;
             else break;
-            watchedGenresScore.put(genre,watchedGenresScore.get(genre)*multiplier);
+            watchedGenresScore.put(genre, watchedGenresScore.get(genre) * multiplier);
         }
     }
 
-    private HashMap<String, Double> assignGenresScore(List<MovieRating> ratings) {
+
+    private HashMap<String, Double> assignGenresByQuantityScore(List<MovieRating> ratings,HashMap<String,Integer> watchedGenresCounted) {
         HashMap<String, Double> genreScores=new HashMap<>();
         for (MovieRating rating: ratings) {
             String genre = rating.getMovie().getGenre();
@@ -108,6 +102,7 @@ public class MovieRecommenderLogic {
                 genreScores.put(genre, genreScores.get(genre)+rating.getRating());
             }
         }
+        genreScores.replaceAll((k, v) -> genreScores.get(k) / watchedGenresCounted.get(k));
         return genreScores;
     }
 
