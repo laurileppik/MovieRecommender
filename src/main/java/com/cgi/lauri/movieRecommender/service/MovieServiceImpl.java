@@ -21,6 +21,7 @@ import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -78,9 +79,8 @@ public class MovieServiceImpl implements MovieService{
     }
 
     @Override
-    public List<MovieDto> getFilteredMovies(String genre, Integer minAge, String language, String date) {
+    public List<MovieDto> getFilteredMovies(String genre, Integer minAge, String language, String date,Long movieId) {
         List<Predicate<Movie>> filters = new ArrayList<>();
-
         if (genre != null) {
             filters.add(movie -> movie.getGenre().equals(genre));
         }
@@ -89,6 +89,9 @@ public class MovieServiceImpl implements MovieService{
         }
         if (language != null) {
             filters.add(movie -> movie.getLanguage().equals(language));
+        }
+        if (movieId != null) {
+            filters.add(movie -> Objects.equals(movie.getId(), movieId));
         }
 
         Predicate<Movie> combinedFilter = filters.stream().reduce(Predicate::and).orElse(movie -> true);

@@ -31,6 +31,7 @@ function App() {
             <Route path='/signup' element={<SignupComponent />} />
             <Route path='/admin/addmovie' element={<AddMovieComponent />} />
             <Route path='/admin/addshowtime' element={<AddShowTimesComponent />} />
+            <Route path="/movie/showtimes/:filterMovieId" element= {<ListShowtimeComponent />}></Route>
           </Routes>
         <FooterComponent />
       </BrowserRouter>

@@ -8,7 +8,7 @@ const REST_API_BASE_URL= 'http://localhost:8080/api/movies';
 
 const REST_API_BASE_URL_SHOW= 'http://localhost:8080/api/showtimes';
 
-export const listShowTimes = (selectedGenre, ageFilter, languageFilter, dateFilter) => {
+export const listShowTimes = (selectedGenre, ageFilter, languageFilter, dateFilter, movieId) => {
   let url = REST_API_BASE_URL;
   const params = new URLSearchParams();
   if (selectedGenre) {
@@ -23,6 +23,9 @@ export const listShowTimes = (selectedGenre, ageFilter, languageFilter, dateFilt
   if (dateFilter) {
     params.append("date",dateFilter);
   }
+  if (movieId) {
+    params.append("movieId",movieId);
+  }
   url += `?${params.toString()}`;
   return axios.get(url, { headers });
 };
@@ -30,3 +33,5 @@ export const listShowTimes = (selectedGenre, ageFilter, languageFilter, dateFilt
 export const getShowTime = (showId) => axios.get(REST_API_BASE_URL_SHOW + '/' + showId, { headers });
 
 export const setShowTime = (show) => axios.post(REST_API_BASE_URL_SHOW, show, {headers});
+
+//export const listShowtimesById = (movieId) => axios.get(REST_API_BASE_URL_SHOW + '/list/' + movieId, {headers})

@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { listShowTimes } from '../services/ShowTimeService';
 import { getCustomer } from '../services/CustomerService';
 import { listRatings } from '../services/RatingService';
+import { useParams } from 'react-router-dom';
 
 import { Link } from 'react-router-dom'
 import { getGenres,getAges,getLanguages } from '../services/MovieService';
 
-const ListMovieComponent = () => {
+const ListShowtimeComponent = () => {
     const [movies, setMovies] = useState([]);
     const [selectedGenre, setSelectedGenre] = useState('');
     const [customer, SetCustomer] = useState([]);
@@ -17,11 +18,14 @@ const ListMovieComponent = () => {
     const [genres, setGenres] = useState([]);
     const [ages, setAges] = useState([]);
     const [languages, setLanguages] = useState([]);
+    const { filterMovieId } = useParams();
+    
 
     useEffect(() => {
         const fetchShowTimes = async () => {
             try {
-                const response = await listShowTimes(selectedGenre, ageFilter,languageFilter,date);
+                console.log("aaaaa   " + filterMovieId)
+                const response = await listShowTimes(selectedGenre, ageFilter,languageFilter,date,filterMovieId);
                 setMovies(response.data);
             } catch (error) {
                 console.error(error);
@@ -29,7 +33,7 @@ const ListMovieComponent = () => {
         };
     
         fetchShowTimes();
-    }, [selectedGenre, ageFilter,languageFilter,date]);
+    }, [selectedGenre, ageFilter,languageFilter,date,filterMovieId]);
 
     useEffect(() => {
         const fetchGenres = async () => {
@@ -209,4 +213,4 @@ const ListMovieComponent = () => {
     );
 };
 
-export default ListMovieComponent;
+export default ListShowtimeComponent;

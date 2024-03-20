@@ -54,5 +54,11 @@ public class ShowtimeServiceImpl implements ShowtimeService{
         return ShowtimeMapper.mapToShowtimeDto(showtime);
     }
 
+    @Override
+    public List<ShowtimeDto> getAllShowtimesById(Long movieId) {
+        return showtimeRepository.findAllByMovieId(movieId).stream().map(showtime -> ShowtimeMapper.mapToShowtimeDto(showtime))
+                .collect(Collectors.toList());
+    }
+
 
 }

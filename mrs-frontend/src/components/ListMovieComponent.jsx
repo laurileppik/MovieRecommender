@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { listMovies } from '../services/MovieService'
 import { listRatings } from '../services/RatingService'
+import { Link } from 'react-router-dom'
 
 const ListMovieComponent = () => {
 
@@ -37,6 +38,7 @@ const ListMovieComponent = () => {
                     <th>Language</th>
                     <th>Minimum age</th>
                     <th>Imdb rating</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -49,6 +51,9 @@ const ListMovieComponent = () => {
                             <td>{movie.language}</td>
                             <td>{movie.minimumAge}</td>
                             <td>{movie.imdbRating}</td>
+                            <td>
+                                <Link to={`/movie/showtimes/${movie.id}`} className="btn btn-primary">Vaata aegu</Link>
+                            </td> 
                         </tr>)
                 }
                 <tr>

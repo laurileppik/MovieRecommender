@@ -12,7 +12,7 @@ public interface MovieService {
     MovieDto updateMovie(Long movieId, MovieDto movieDto);
     void deleteMovie(Long movieId);
 
-    List<MovieDto> getFilteredMovies(String genre,Integer minAge,String language, String date);
+    List<MovieDto> getFilteredMovies(String genre,Integer minAge,String language, String date,Long movieId);
 
     List<MovieDto> getAllRecommendedMovies(Long customerId);
     //MovieDto addScreensToMovie(Long movieId, List<Long> screenIds);
