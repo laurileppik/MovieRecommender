@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class ScreenLogic {
+    private static List<Integer> splittingFriendsRecommendedSeats = new ArrayList<>();
 
     public List<Boolean> generateRandomSeats(int noOfSeats) {
         List<Boolean> seats = new ArrayList<>();
@@ -21,11 +22,11 @@ public class ScreenLogic {
         return seats;
     }
 
-    public List<Integer> generateRecommendSeats(List<Boolean> occupiedSeats, Integer noOfTickets, int rows, int seatsInRow) {
+    public List<Integer> generateRecommendSeats(List<Boolean> occupiedSeats, Integer noOfTickets, int rows, int seatsInOneRow) {
         //JUURDE LISADA ET VOTA 10 ESIMEST PARIMAT JA VOTA NEIST PARIMA SKOORIGA
         if (noOfTickets > occupiedSeats.stream().filter(seat -> seat).count())
             return null;
-        TreeMap<Integer, List<int[]>> scoremap = populateHeatMap(occupiedSeats,rows,seatsInRow);
+        TreeMap<Integer, List<int[]>> scoremap = populateHeatMap(occupiedSeats,rows,seatsInOneRow);
         List<Integer> recommendedSeats=new ArrayList<>();
 
         //If there are no seats next to one another
@@ -35,17 +36,16 @@ public class ScreenLogic {
         for (Integer score : scoremap.keySet()) {
             List<int[]> allScoreIndexes = scoremap.get(score);
             for (int i = 0; i < allScoreIndexes.size(); i++) {
+                //Rida, koht
                 int[] seat = allScoreIndexes.get(i);
                 //If the seat is available
-                int seatIndex = translateSeatIndexes(seat,seatsInRow);
+                int seatIndex = translateSeatIndexes(seat,seatsInOneRow);
                 if (occupiedSeats.get(seatIndex)){
-                    //System.out.println(seatIndex +" " + occupiedSeats.get(seatIndex) + " row: " + getRow(occupiedSeats,seatIndex,seatsInRow) + " seatIndex: " + seatIndex);
-                    recommendedSeats= findSeatsInRow(getRow(occupiedSeats,seatIndex,seatsInRow),noOfTickets,seat[1]);
-                    if (!recommendedSeats.isEmpty()) {
-                        return recommendedSeats.stream().map(mapper -> seatsInRow * seat[0]+mapper)
-                                .collect(Collectors.toList());
-                    } else {
 
+                    recommendedSeats= findSeatsInRow(getRow(occupiedSeats,seatIndex,seatsInOneRow),noOfTickets,seat, seatsInOneRow);
+                    if (!recommendedSeats.isEmpty()) {
+                        return recommendedSeats.stream().map(mapper -> seatsInOneRow * seat[0]+mapper)
+                                .collect(Collectors.toList());
                     }
                     if (backupCounter>0){
                         backupSeats.add(seatIndex);
@@ -54,7 +54,10 @@ public class ScreenLogic {
                 }
             }
         }
-
+        List<Integer> returnableList=new ArrayList<>(splittingFriendsRecommendedSeats);
+        splittingFriendsRecommendedSeats.clear();
+        if (returnableList.size()==noOfTickets)
+            return returnableList;
         return backupSeats;
     }
 
@@ -64,13 +67,13 @@ public class ScreenLogic {
         return originalOccupiedSeats.subList(startIndex, endIndex);
     }
 
-    private List<Integer> findSeatsInRow(List<Boolean> occupiedSeatsInRow, Integer noOfTickets, int index) {
+    private List<Integer> findSeatsInRow(List<Boolean> occupiedSeatsInRow, Integer noOfTickets, int[] seat, int seatsInOneRow) {
         List<Integer> seats = new ArrayList<>();
-        if (index < 0 || index >= occupiedSeatsInRow.size()) {
+        if (seat[1] < 0 || seat[1] >= occupiedSeatsInRow.size()) {
             return seats;
         }
         int count=0;
-        for (int i = index; i < occupiedSeatsInRow.size(); i++) {
+        for (int i = seat[1]; i < occupiedSeatsInRow.size(); i++) {
             if (occupiedSeatsInRow.get(i)) {
                 seats.add(i);
                 count++;
@@ -80,7 +83,7 @@ public class ScreenLogic {
             } else break;
         }
 
-        for (int i = index-1; i >= 0; i--) {
+        for (int i = seat[1]-1; i >= 0; i--) {
             if (occupiedSeatsInRow.get(i)) {
                 seats.add(0,i);
                 count++;
@@ -89,6 +92,15 @@ public class ScreenLogic {
                 }
             } else break;
 
+        }
+        if (seats.size()>=2 && noOfTickets-splittingFriendsRecommendedSeats.size()>=2 && (noOfTickets-seats.size()-splittingFriendsRecommendedSeats.size()>=2 || noOfTickets-seats.size()-splittingFriendsRecommendedSeats.size()==0)) {
+            while (noOfTickets-splittingFriendsRecommendedSeats.size()>0 ) {
+                int addableSeat = seatsInOneRow*seat[0] + seats.removeFirst();
+                System.out.println("   as asd  d " + addableSeat);
+                if (!splittingFriendsRecommendedSeats.contains(addableSeat))
+                    splittingFriendsRecommendedSeats.add(addableSeat);
+                if (seats.size()<=0) break;
+            }
         }
         return new ArrayList<>();
     }
