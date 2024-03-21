@@ -54,7 +54,7 @@ const ShowtimeComponent = () => {
     <div className="centered-div">
       {showtime && movie && (
         
-        <div>
+        <div className= "details">
           <h2>Showtime Details</h2>
           <p>Start Date: {new Date(showtime.startTime).toLocaleDateString('en-GB')}</p>
           <p>Start time: {new Date(showtime.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}</p>

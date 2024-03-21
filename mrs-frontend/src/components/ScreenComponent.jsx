@@ -4,7 +4,7 @@ import { getScreen } from '../services/ScreenService';
 import { setMovieRating } from '../services/RatingService';
 import availableChairImage from '../assets/images/availableChairImage.png';
 import recommChairImage from '../assets/images/recommChair.png';
-
+import '../css/Screen.css'
 
 import { Link } from 'react-router-dom'
 
@@ -66,30 +66,31 @@ const ScreenComponent = () => {
 
   const renderSeatingPlan = () => {
     if (!screen) return null;
-
-    const rows = [];
+    const plan = [];
     for (let i = 0; i < screen.rows; i++) {
       const rowSeats = [];
       for (let j = 0; j < screen.seatsInRow; j++) {
         const seatIndex = i * screen.seatsInRow + j;
         let seatStatus = seats[seatIndex] ? 'available' : 'occupied';
-        if (recommSeats && recommSeats.includes(seatIndex)){
-            console.log(seatStatus)
-            seatStatus = 'recommend'
+        let isRecommended = recommSeats && recommSeats.includes(seatIndex);
+        if (isRecommended) {
+          seatStatus = 'recommend';
         }
         rowSeats.push(
           <td key={j} className={seatStatus}>
-            <img src={seatStatus === 'recommend' ? recommChairImage : availableChairImage} alt={`Seat ${seatIndex + 1}`} />
+            <img src={isRecommended ? recommChairImage : availableChairImage} alt={`Seat ${i + 1}-${j + 1}`} />
+            <div className="seat-number">{j + 1}</div>
           </td>
         );
       }
-      rows.push(<tr key={i}>{rowSeats}</tr>);
+      plan.push(
+        <div className="seating-row" key={`row-${i}`}>
+          <div className="row-label">Rida {i + 1}</div>
+          <table><tbody><tr>{rowSeats}</tr></tbody></table>
+        </div>
+      );
     }
-    return (
-      <table className="seating-plan">
-        <tbody>{rows}</tbody>
-      </table>
-    );
+    return <div className="seating-plan">{plan}</div>;
   };
 
   return (
@@ -98,13 +99,17 @@ const ScreenComponent = () => {
         {screen && (
           <div>
             {renderSeatingPlan()}
-            <p>Saal {screen.id}</p>
+            <div className="screen-info">
+              <p className="Screen">Saal {screen.id}</p>
+              <div className="buttons-container">
+                <Link to={`/showtimes/`} className="btn btn-primary">Tühista</Link>
+                <Link to={`/`} className="btn btn-primary" onClick={handleMovieRating}>Kinnita</Link>
+              </div>
+            </div>
           </div>
         )}
       </div>
-    <Link to={`/showtimes/`} className="btn btn-primary">Tühista</Link>
-    <Link to={`/`} className="btn btn-primary" onClick={handleMovieRating}>Kinnita</Link>
-  </div>
+    </div>
   );
 };
 

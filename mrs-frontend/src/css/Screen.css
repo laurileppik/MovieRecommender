@@ -1,5 +1,6 @@
-.seat {
-
+.available img, .occupied img, .recommend img {
+    width: 30px;
+    height: 25px;
 }
   
 .available {
@@ -9,3 +10,76 @@
 .occupied {
     background-color: red;
 }
+
+p {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+}
+
+.seat-number {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.recommend{
+    -webkit-text-stroke-color: blue;
+    background-color: yellow;
+}
+
+.seating-plan {
+    display: grid;
+}
+  
+.seating-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+}
+  
+.row-label {
+    margin-right: 15px;
+    white-space: nowrap;
+    min-width: 70px;
+    text-align: right;
+}
+  
+table {
+    border-collapse: collapse;
+}
+  
+td {
+    padding: 5px;
+}
+  
+.seating-plan-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+.btn-primary {
+    margin-right: 10px;
+    background-color: orange;
+}
+
+.btn {
+    color: orange;
+    background-color: orange;
+}
+
+.screen-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+  }
+
+  
