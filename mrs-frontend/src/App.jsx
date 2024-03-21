@@ -11,10 +11,27 @@ import SignupComponent from './components/SignUpComponent'
 import AddMovieComponent from './components/admin/AddMovieComponent'
 import AddShowTimesComponent from './components/admin/AddShowTimesComponent'
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { listRatings } from './services/RatingService';
 
 
 function App() {
+  const [ratings, setRatings] = useState([]);
+
+  useEffect(() => {
+    const fetchRatings = async () => {
+      try {
+        const response = await listRatings(localStorage.getItem("customerId"));
+        setRatings(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchRatings();
+  }, []);
+
 
   return (
     <>

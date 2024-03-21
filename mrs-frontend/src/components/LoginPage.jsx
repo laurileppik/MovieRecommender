@@ -1,11 +1,7 @@
 import React, { useState } from 'react'; 
 import axios from 'axios'; 
 import { useNavigate } from 'react-router-dom'; 
-import { 
-    MDBContainer, 
-    MDBInput, 
-    MDBBtn, 
-} from 'mdb-react-ui-kit'; 
+import { MDBContainer, MDBInput, MDBBtn, } from 'mdb-react-ui-kit'; 
   
 function LoginPage() { 
     const [userName, setUsername] = useState(''); 

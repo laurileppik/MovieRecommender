@@ -11,7 +11,4 @@ import java.util.List;
 @Repository
 public interface MovieRatingRepository extends JpaRepository<MovieRating,Long> {
     List<MovieRating> findAllByCustomer_Id(Long customerId);
-    @Modifying
-    @Query(value = " INSERT INTO movie_rating (rating, customer_id, movie_id) VALUES (1, :customerId, :movieId)", nativeQuery = true)
-    void saveRating(@Param("movieId") Long movieId, @Param("customerId") Long customerId);
 }

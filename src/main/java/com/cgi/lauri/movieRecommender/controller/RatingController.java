@@ -35,8 +35,8 @@ public class RatingController {
     }
 
     @PostMapping
-    public ResponseEntity<MovieRatingDto> createRating(@RequestBody MovieRatingKey movieRatingKey) {
-        MovieRatingDto savedMovieRating = movieRatingService.createMovieRating(movieRatingKey);
+    public ResponseEntity<MovieRatingDto> createRating(@RequestBody MovieRatingDto movieRatingDto) {
+        MovieRatingDto savedMovieRating = movieRatingService.createMovieRating(movieRatingDto);
         return new ResponseEntity<>(savedMovieRating, HttpStatus.CREATED);
     }
 }

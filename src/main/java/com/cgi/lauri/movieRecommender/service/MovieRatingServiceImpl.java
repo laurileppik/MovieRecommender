@@ -30,23 +30,17 @@ public class MovieRatingServiceImpl implements MovieRatingService{
     }
 
     @Override
-    public MovieRatingDto createMovieRating(MovieRatingKey movieRatingKey) {
-        Long customerId = movieRatingKey.getCustomerId();
-        Long movieId = movieRatingKey.getMovieId();
-        System.out.println();
-        System.out.println(" a sd asdasd s " + customerId.getClass() +  "   " + customerId);
+    public MovieRatingDto createMovieRating(MovieRatingDto movieRatingDto) {
+        Long customerId = movieRatingDto.getCustomer().getId();
+        Long movieId = movieRatingDto.getMovie().getId();
         Customer customer = customerRepository.findById(customerId).orElseThrow(
                 () -> new ResourceNotFoundException("Customer not found with id "+ customerId)
         );
         Movie movie = movieRepository.findById(movieId).orElseThrow(
                 () -> new ResourceNotFoundException("Movie not found with id "+ movieId)
         );
-
-        MovieRating movieRating = new MovieRating(customer,movie,2);
-        System.out.println(movieRating + "   " + movieRating.getMovie().getId() + "     " + movieRating.getCustomer().getUserName());
-        //MovieRating savedMovie =
-        //movieRatingRepository.saveRating(movieId,customerId);
+        MovieRating movieRating = new MovieRating(customer,movie, movieRatingDto.getRating());
         MovieRating savedMovieRating = movieRatingRepository.save(movieRating);
-        return MovieRatingMapper.mapToMovieRatingDTO(savedMovieRating);
+        return MovieRatingMapper.mapToMovieRatingDTOwithoutRating(savedMovieRating);
     }
 }

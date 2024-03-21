@@ -9,5 +9,5 @@ import java.util.List;
 public interface MovieRatingService {
     List<MovieRatingDto> getAllRatingsByCustomerId(Long customerId);
 
-    MovieRatingDto createMovieRating(MovieRatingKey movieRatingKey);
+    MovieRatingDto createMovieRating(MovieRatingDto movieRatingDto);
 }

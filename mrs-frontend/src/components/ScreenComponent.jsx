@@ -20,8 +20,8 @@ const ScreenComponent = () => {
   const navigate = useNavigate();
 
   const [movieRating, setRating] = useState({
-    movieId: movieId,
-    customerId: localStorage.getItem('customerId'),
+    movie: {id: movieId,},
+    customer:{id: localStorage.getItem('customerId'),}
 });
 
   useEffect(() => {
@@ -41,15 +41,28 @@ const ScreenComponent = () => {
 
   const handleMovieRating = async (e) => {
     e.preventDefault();
+    let userRating = prompt('Please rate the movie (out of 5):');
+    userRating = parseInt(userRating);
+    if (isNaN(userRating) || userRating < 1 || userRating > 5) {
+      alert('Please enter a valid rating between 1 and 5.');
+      return;
+    }
+  
+    const updatedRating = {
+      ...movieRating,
+      rating: userRating
+    };
+  
     try {
-      await setMovieRating(movieRating);
-      alert('Rating added successfully');
+      await setMovieRating(updatedRating);
+      alert('Film edukalt vaadatud!');
+      navigate('/');
+    } catch (error) {
+      alert("Seda filmi oled juba vaadanud!");
       navigate('/');
     }
-    catch(error) {
-      alert(error.message);
-    }
   };
+  
 
   const renderSeatingPlan = () => {
     if (!screen) return null;

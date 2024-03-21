@@ -1,10 +1,7 @@
 import React, { useState } from 'react'; 
 import axios from 'axios'; 
 import { useNavigate } from 'react-router-dom';
-import { 
-    MDBContainer, 
-    MDBInput, 
-} from 'mdb-react-ui-kit'; 
+import { MDBContainer, MDBInput } from 'mdb-react-ui-kit'; 
   
 function SignupComponent() { 
     const [firstName, setFirstName] = useState('');

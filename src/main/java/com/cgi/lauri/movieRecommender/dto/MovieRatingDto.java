@@ -15,4 +15,9 @@ public class MovieRatingDto {
     private Customer customer;
     private Movie movie;
     private int rating;
+
+    public MovieRatingDto(Customer customer, Movie movie) {
+        this.customer=customer;
+        this.movie=movie;
+    }
 }

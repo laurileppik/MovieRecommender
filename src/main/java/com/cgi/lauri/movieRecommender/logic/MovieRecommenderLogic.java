@@ -40,6 +40,7 @@ public class MovieRecommenderLogic {
                 recommendedMovies.add(correctGenreMovies.removeFirst());
             }
         }
+        recommendedMovies.sort((m1, m2) -> Double.compare(m2.getImdbRating(), m1.getImdbRating()));
         return recommendedMovies;
     }
 
