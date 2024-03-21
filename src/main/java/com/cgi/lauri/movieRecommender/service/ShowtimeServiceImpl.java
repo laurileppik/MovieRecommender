@@ -29,13 +29,11 @@ public class ShowtimeServiceImpl implements ShowtimeService{
         Screen screen = screenRepository.findById(showtimeDto.getScreenId()).orElseThrow(
                 () -> new ResourceNotFoundException("Screen does not exist with the given id: " + showtimeDto.getScreenId())
         );
-
         Showtime showtime = new Showtime();
         showtime.setMovie(movie);
         showtime.setScreen(screen);
         showtime.setStartTime(showtimeDto.getStartTime());
-        showtime.setEndTime(showtimeDto.getEndTime());
-
+        showtime.setDuration(showtimeDto.getDuration());
         Showtime savedShowtime = showtimeRepository.save(showtime);
         return ShowtimeMapper.mapToShowtimeDto(savedShowtime);
     }

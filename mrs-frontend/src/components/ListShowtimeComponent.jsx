@@ -155,14 +155,14 @@ const ListShowtimeComponent = () => {
                 <thead>
                     <tr>
                         {
-                            //Tee 7ks tükiks, mapi i-le päev ja kuupäev
-                            [...Array(7)].map((_, i) => {
-                                const d = new Date();
-                                d.setDate(d.getDate() + i);
-                                const weekday = new Intl.DateTimeFormat('et-EE', { weekday: 'long' }).format(d);
-                                const date = d.toLocaleDateString('et-EE', { day: '2-digit', month: '2-digit' });
-                                return <th key={i}> <button onClick={() => handleDayFilter(date)}>{`${weekday} (${date})`}</button> </th>
-                            })
+                        //Tee 7ks tükiks, mapi i-le päev ja kuupäev
+                        [...Array(7)].map((_, i) => {
+                            const d = new Date();
+                            d.setDate(d.getDate() + i);
+                            const weekday = new Intl.DateTimeFormat('et-EE', { weekday: 'long' }).format(d);
+                            const date = d.toLocaleDateString('et-EE', { day: '2-digit', month: '2-digit' });
+                            return <th key={i}> <button onClick={() => handleDayFilter(date)}>{`${weekday} (${date})`}</button> </th>
+                        })
                         }
                     </tr>
                 </thead>
@@ -174,32 +174,45 @@ const ListShowtimeComponent = () => {
                         <th>Genre</th>
                         <th>Language</th>
                         <th>Minimum age</th>
+                        <th>Start date</th>
                         <th>Start time</th>
-                        <th>End time</th>
+                        <th>Duration</th>
                         <th>Screen</th>
                         <th>Imdb rating</th>
                         <th></th> 
                     </tr>
                 </thead>
                 <tbody>
-                    {movies.map(movie =>
-                        movie.showtimes.map(time =>
-                            <tr key={time.id}>
-                                <td>{movie.name}</td>
-                                <td>{movie.genre}</td>
-                                <td>{movie.language}</td>
-                                <td>{movie.minimumAge}</td>
-                                <td>{new Date(time.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}</td>
-                                <td>{new Date(time.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}</td>
-                                <td>{time.screen.id}</td>
-                                <td>{movie.imdbRating}</td>
-                                <td>
-                                    <Link to={`/showtimes/${time.id}`} className="btn btn-primary">Osta piletid</Link>
-                                </td> 
-                            </tr>
-                        )
-                    )}
-                </tbody>
+                    {movies
+                        .flatMap(movie =>
+                        movie.showtimes.map(time => ({
+                            movie,
+                            time})
+                            ))
+                        .sort((a, b) => {
+                        const startTimeA = new Date(a.time.startTime);
+                        const startTimeB = new Date(b.time.startTime);
+                        if (startTimeA < startTimeB) return -1;
+                        if (startTimeA > startTimeB) return 1;
+                        return 0;
+                        })
+                        .map(({ movie, time }) => (
+                        <tr key={time.id}>
+                            <td>{movie.name}</td>
+                            <td>{movie.genre}</td>
+                            <td>{movie.language}</td>
+                            <td>{movie.minimumAge}</td>
+                            <td>{new Date(time.startTime).toLocaleDateString('en-GB')}</td>
+                            <td>{new Date(time.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}</td>
+                            <td>{time.duration}</td>
+                            <td>{time.screen.id}</td>
+                            <td>{movie.imdbRating}</td>
+                            <td>
+                            <Link to={`/showtimes/${time.id}`} className="btn btn-primary">Osta piletid</Link>
+                            </td>
+                        </tr>
+                        ))}
+                    </tbody>
             </table>
             {ratings.length > 0 && (
                 <Link to={`/movies/${localStorage.getItem("customerId")}`}className="btn btn-secondary" style={{ marginBottom: "100px" }}> Soovita filme vaatamisajaloo põhjal.</Link> 

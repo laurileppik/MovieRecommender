@@ -29,13 +29,13 @@ public class ShowtimeDto {
 
     private LocalDateTime startTime;
 
-    private LocalDateTime endTime;
+    private Integer duration;
 
-    public ShowtimeDto(Long id, Long movieId, Long screenId, LocalDateTime startTime, LocalDateTime endTime) {
+    public ShowtimeDto(Long id, Long movieId, Long screenId, LocalDateTime startTime, Integer duration) {
         this.id = id;
         this.movieId = movieId;
         this.screenId = screenId;
         this.startTime = startTime;
-        this.endTime = endTime;
+        this.duration=duration;
     }
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getShowTime } from '../services/ShowTimeService';
 import { getMovie } from '../services/MovieService'
+import '../css/Showtime.css'
 
 import { Link } from 'react-router-dom'
 
@@ -50,15 +51,14 @@ const ShowtimeComponent = () => {
   };
 
   return (
-    <div>
+    <div className="centered-div">
       {showtime && movie && (
+        
         <div>
           <h2>Showtime Details</h2>
-          <p>ID: {showtime.id}</p>
-          <p>Movie ID: {showtime.movieId}</p>
-          <p>Screen ID: {showtime.screenId}</p>
-          <p>Start Time: {showtime.startTime}</p>
-          <p>End Time: {showtime.endTime}</p>
+          <p>Start Date: {new Date(showtime.startTime).toLocaleDateString('en-GB')}</p>
+          <p>Start time: {new Date(showtime.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}</p>
+          <p>Duration: {showtime.duration}</p>
           <p>Movie: {movie.name}</p>
           <button onClick={handleSelectTicket}>+</button>
           <button onClick={handleDeselectTicket}>-</button>

@@ -17,4 +17,6 @@ public class OmdbResponse {
     private String genre;
     @JsonProperty("Language")
     private String language;
+    @JsonProperty("Runtime")
+    private String duration;
 }

@@ -74,7 +74,7 @@ const AddMovieComponent = () => {
                         <div style={{ marginTop: '5px' }}>
                             {suggestedMovies.map((movie) => (
                                 <button key={movie.imdbID} type="button" onClick={() => handleSuggestionClick(movie)}
-                                style={{ cursor: 'pointer', display: 'block', marginBottom: '5px' }}>
+                                    style={{ cursor: 'pointer', display: 'block', marginBottom: '5px' }}>
                                     {movie.Title}
                                 </button>
                             ))}

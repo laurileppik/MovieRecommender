@@ -6,7 +6,6 @@ const AddShowTimesComponent = () => {
     const [showtime, setShowTimeState] = useState({
         name: '',
         startTime: '',
-        endTime: '',
         screenId: '',
     });
 
@@ -23,6 +22,7 @@ const AddShowTimesComponent = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            console.log(showtime);
             await setShowTime(showtime);
             alert('Showtime added successfully');
             navigate('/');
@@ -51,16 +51,6 @@ const AddShowTimesComponent = () => {
                         type="datetime-local"
                         name="startTime"
                         value={showtime.startTime}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>End Time:</label>
-                    <input
-                        type="datetime-local"
-                        name="endTime"
-                        value={showtime.endTime}
                         onChange={handleChange}
                         required
                     />

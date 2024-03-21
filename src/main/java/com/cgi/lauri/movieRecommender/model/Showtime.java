@@ -29,11 +29,10 @@ public class Showtime {
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss",shape = JsonFormat.Shape.STRING)
     private LocalDateTime startTime;
 
-    @Column(name="end_time")
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss",shape = JsonFormat.Shape.STRING)
-    private LocalDateTime endTime;
-
     @ManyToOne
     @JoinColumn(name="screen_id", nullable=false)
     private Screen screen;
+
+    @Column(name="duration")
+    private Integer duration;
 }

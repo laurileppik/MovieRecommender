@@ -46,6 +46,16 @@ public class OmdbService {
         return "N/A";
     }
 
+    public String fetchDuration(String title) {
+        String url = buildOmdbApiUrl(title);
+        OmdbResponse response = restTemplate.getForObject(url, OmdbResponse.class);
+        if (response != null && response.getDuration() != null) {
+            String[] splitDuration = response.getDuration().split(" ");
+            return splitDuration[0];
+        }
+        return "N/A";
+    }
+
     private String buildOmdbApiUrl(String title) {
         return UriComponentsBuilder.fromHttpUrl("http://www.omdbapi.com/")
                 .queryParam("t", title)

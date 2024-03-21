@@ -2,6 +2,7 @@ package com.cgi.lauri.movieRecommender.controller;
 
 import com.cgi.lauri.movieRecommender.dto.ShowtimeDto;
 import com.cgi.lauri.movieRecommender.service.MovieService;
+import com.cgi.lauri.movieRecommender.service.OmdbService;
 import com.cgi.lauri.movieRecommender.service.ShowtimeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,10 +18,15 @@ import java.util.List;
 public class ShowtimeController {
     private ShowtimeService showtimeService;
     private MovieService movieService;
-
+    private OmdbService omdbService;
     @PostMapping
     public ResponseEntity<ShowtimeDto> createShowtime(@RequestBody ShowtimeDto showtimeDto) {
         Long movieId = movieService.getMovieIdByName(showtimeDto.getName());
+        String duration = omdbService.fetchDuration(showtimeDto.getName());
+        if (!duration.equals("N/A")) {
+            Integer intDuration = Integer.valueOf(duration);
+            showtimeDto.setDuration(intDuration);
+        }
         showtimeDto.setMovieId(movieId);
         ShowtimeDto savedShowTimeDto = showtimeService.createShowTime(showtimeDto);
         return new ResponseEntity<>(savedShowTimeDto, HttpStatus.CREATED);
