@@ -44,7 +44,6 @@ public class UserController {
         Optional<Customer> isUsernameExist = userRepository.findByUserName(email);
         if (isUsernameExist.isPresent()) {
             //throw new Exception("Email Is Already Used With Another Account");
-
         }
         Customer createdUser = new Customer();
         createdUser.setUserName(email);

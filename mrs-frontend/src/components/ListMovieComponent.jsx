@@ -6,8 +6,9 @@ import { Link } from 'react-router-dom'
 const ListMovieComponent = () => {
 
     const [movies, setMovies] = useState([])
-    const [customerRatings, SetCustomer] = useState([])
+    const [SetCustomer] = useState([])
 
+    //REST API kutsed
     useEffect(() => {
         listMovies(localStorage.getItem("customerId")).then((response) => {
             setMovies(response.data);

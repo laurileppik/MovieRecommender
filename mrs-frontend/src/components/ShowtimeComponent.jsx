@@ -12,6 +12,7 @@ const ShowtimeComponent = () => {
   const [movie, setMovie] = useState(null);
   const [ticketCount, setTicketCount] = useState(0);
 
+  //REST API kutsed
   useEffect(() => {
     const fetchShowtime = async () => {
       try {
@@ -40,6 +41,7 @@ const ShowtimeComponent = () => {
     }
   }, [showtime]);
 
+  //Loogika piletite arvu meeleshoidmiseks
   const handleSelectTicket = () => {
     setTicketCount(ticketCount + 1);
   };

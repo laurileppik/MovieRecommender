@@ -1,3 +1,7 @@
+/** Enamus koodi selles klassis on võetud siit: https://www.geeksforgeeks.org/spring-security-login-page-with-react/
+ * Most of the code in this class is taken from here: https://www.geeksforgeeks.org/spring-security-login-page-with-react/
+ * **/
+
 import React, { useState } from 'react'; 
 import axios from 'axios'; 
 import { useNavigate } from 'react-router-dom';

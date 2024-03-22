@@ -10,7 +10,8 @@ const AddShowTimesComponent = () => {
     });
 
     const navigate = useNavigate();
-
+    
+    //Meetod juhuks kui väärtus lünga sees muutub
     const handleChange = (e) => {
         const { name, value } = e.target;
         setShowTimeState({
@@ -19,6 +20,7 @@ const AddShowTimesComponent = () => {
         });
     };
 
+    //REST API vaatamisaja lisamiseks
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {

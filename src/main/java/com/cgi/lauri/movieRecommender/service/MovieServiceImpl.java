@@ -91,12 +91,15 @@ public class MovieServiceImpl implements MovieService{
             filters.add(movie -> Objects.equals(movie.getId(), movieId));
         }
 
+        //Tekitame filtri, kus juhul kui mingi filter üleval defineeritud filtritest on rakendatud,
+        //leiame vastavalt filmid, mis vastavad sellele filtrile
         Predicate<Movie> combinedFilter = filters.stream().reduce(Predicate::and).orElse(movie -> true);
         List<MovieDto> filteredMovies = movieRepository.findAll().stream()
                 .filter(combinedFilter)
                 .map(MovieMapper::mapToMovieDTO)
                 .collect(Collectors.toList());
 
+        //Tekitame lisaks veel kuupäeva filtri
         if (date != null) {
             String dateWithYear = date + "." + Year.now();
             LocalDate formattedDate = LocalDate.parse(dateWithYear, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
@@ -114,7 +117,6 @@ public class MovieServiceImpl implements MovieService{
     @Override
     public List<MovieDto> getAllRecommendedMovies(Long customerId) {
         Customer customer = CustomerMapper.maptoCustomer(customerService.getCustomerById(customerId));
-
         List<MovieRating> ratings = movieRatingService.getAllRatingsByCustomerId(customerId).stream().map(movieRatingDto ->
                 MovieRatingMapper.mapToMovieRating(movieRatingDto)).collect(Collectors.toList());
         List<Movie> allMovies = movieRepository.findAll();

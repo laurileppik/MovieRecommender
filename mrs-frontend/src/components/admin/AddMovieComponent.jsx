@@ -13,17 +13,7 @@ const AddMovieComponent = () => {
     const [suggestedMovies, setSuggestedMovies] = useState([]);
     const navigate = useNavigate();
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setMovieState({
-            ...movie,
-            [name]: value,
-        });
-        if (name === 'name') {
-            handleSuggestion(value);
-        }
-    };
-
+    //Otsime OMDb API abil filme, mis algavad samamoodi nagu kasutaja sisestab
     const handleSuggestion = async (query) => {
         try {
             const response = await fetch(`https://www.omdbapi.com/?apikey=fc0dea0b&s=${query}`);
@@ -38,6 +28,7 @@ const AddMovieComponent = () => {
         }
     };
 
+    //Kui vajutame filmi peale, siis lisatakse film lünka
     const handleSuggestionClick = (movie) => {
         setMovieState({
             ...movie,
@@ -46,6 +37,7 @@ const AddMovieComponent = () => {
         setSuggestedMovies([]);
     };
 
+    //REST API filmi lisamiseks
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -54,6 +46,18 @@ const AddMovieComponent = () => {
             navigate('/');
         } catch (error) {
             alert(error.message);
+        }
+    };
+
+    //Meetod juhuks kui väärtus lünga sees muutub
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setMovieState({
+            ...movie,
+            [name]: value,
+        });
+        if (name === 'name') {
+            handleSuggestion(value);
         }
     };
 

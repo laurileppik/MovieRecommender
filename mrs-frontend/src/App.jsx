@@ -1,4 +1,4 @@
-import './App.css'
+import './css/App.css'
 import FooterComponent from './components/FooterComponent'
 import HeaderComponent from './components/HeaderComponent'
 import ListMovieComponent from './components/ListMovieComponent'
@@ -19,6 +19,7 @@ import { listRatings } from './services/RatingService';
 function App() {
   const [ratings, setRatings] = useState([]);
 
+  //REST API kutse
   useEffect(() => {
     const fetchRatings = async () => {
       try {
@@ -32,7 +33,7 @@ function App() {
     fetchRatings();
   }, []);
 
-
+  //Vajalikud routeid
   return (
     <>
       <BrowserRouter>

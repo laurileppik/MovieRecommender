@@ -1,3 +1,8 @@
+/** Enamus koodi selles klassis on võetud siit: https://www.geeksforgeeks.org/spring-security-login-page-with-react/
+ * Most of the code in this class is taken from here: https://www.geeksforgeeks.org/spring-security-login-page-with-react/
+ * **/
+
+
 package com.cgi.lauri.movieRecommender.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +27,6 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class ApplicationConfig {
-    //https://www.geeksforgeeks.org/spring-security-login-page-with-react/
-
     @Autowired
     private CustomerDetailService userDetailService;
 
@@ -43,8 +46,6 @@ public class ApplicationConfig {
                 .addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()));
-        //.httpBasic(Customizer.withDefaults())
-        //.formLogin(Customizer.withDefaults());
         return http.build();
     }
 

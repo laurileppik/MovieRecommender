@@ -20,7 +20,7 @@ const ListShowtimeComponent = () => {
     const [languages, setLanguages] = useState([]);
     const { filterMovieId } = useParams();
     
-
+    //REST API kutsed
     useEffect(() => {
         const fetchShowTimes = async () => {
             try {
@@ -73,6 +73,35 @@ const ListShowtimeComponent = () => {
         fetchLanguages();
     }, []);
 
+    useEffect(() => {
+        const fetchRatings = async() => {
+            try {
+                const response = await listRatings(localStorage.getItem("customerId"))
+                SetRatings(response.data);
+            }
+            catch(error) {
+                console.log(error);
+            }
+        };
+    
+        fetchRatings();
+    }, []);
+
+    useEffect(() => {
+        const fetchCustomer = async() => {
+            try {
+                const response = await getCustomer(localStorage.getItem("customerId"))
+                SetCustomer(response.data);
+            }
+            catch(error) {
+                console.log(error);
+            }
+        };
+    
+        fetchCustomer();
+    }, []);
+
+    //Iga kord kui uus filter valitakse, leitakse uuesti kõikide filmide näitamisajad
     const handleLanguageChange = (event) => {
         setLanguageFilter(event.target.value);
     };
@@ -89,41 +118,10 @@ const ListShowtimeComponent = () => {
         setDayFilter(selectedDate);
     };
 
-    useEffect(() => {
-        const fetchRatings = async() => {
-            try {
-                const response = await listRatings(localStorage.getItem("customerId"))
-                console.log(response.data)
-                SetRatings(response.data);
-            }
-            catch(error) {
-                console.log(error);
-            }
-        };
-    
-        fetchRatings();
-    }, []);
-
-
-
-    useEffect(() => {
-        const fetchCustomer = async() => {
-            try {
-                const response = await getCustomer(localStorage.getItem("customerId"))
-                console.log(response.data)
-                SetCustomer(response.data);
-            }
-            catch(error) {
-                console.log(error);
-            }
-        };
-    
-        fetchCustomer();
-    }, []);
-
     return (
         <div className='container'>
-            <h2 className='text-center'>List of Movies</h2>
+            <h2 className='text-center'>Filminimekiri</h2>
+            { /*Erinevad filtrid, mis muutmisel kutsuvad oma vastava muutuse funktsiooni */  }
             <div className='genre-dropdown'>
                 <label htmlFor='genre'>Select Genre:</label>
                 <select id='genre' onChange={handleGenreChange} value={selectedGenre}>
@@ -155,10 +153,11 @@ const ListShowtimeComponent = () => {
                 <thead>
                     <tr>
                         {
-                        //Tee 7ks tükiks, mapi i-le päev ja kuupäev
+                        //Tee järjend suurusega 7, mapi i-le päev ja kuupäev
                         [...Array(7)].map((_, i) => {
                             const d = new Date();
                             d.setDate(d.getDate() + i);
+                            //Ning muuda need vastavalt eestikeelsesse formaati
                             const weekday = new Intl.DateTimeFormat('et-EE', { weekday: 'long' }).format(d);
                             const date = d.toLocaleDateString('et-EE', { day: '2-digit', month: '2-digit' });
                             return <th key={i}> <button onClick={() => handleDayFilter(date)}>{`${weekday} (${date})`}</button> </th>
@@ -184,6 +183,7 @@ const ListShowtimeComponent = () => {
                 </thead>
                 <tbody>
                     {movies
+                    //Flatmap vajalik selleks, et saaksime sorteerida filmi alguskuupäeva ja kellaaja järgi
                         .flatMap(movie =>
                         movie.showtimes.map(time => ({
                             movie,

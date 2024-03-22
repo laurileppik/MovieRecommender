@@ -6,6 +6,7 @@ const CustomerComponent = () => {
     const { customerID } = useParams();
     const [customer, SetCustomer] = useState('');
 
+    //REST API kutse
     useEffect(() => {
         const fetchCustomer = async() => {
             try {

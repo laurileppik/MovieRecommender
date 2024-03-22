@@ -2,7 +2,7 @@ import axios from "axios";
 
 const headers = {
     Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
-  };
+};
 
 const REST_API_BASE_URL= 'http://localhost:8080/api/movies';
 
@@ -33,5 +33,3 @@ export const listShowTimes = (selectedGenre, ageFilter, languageFilter, dateFilt
 export const getShowTime = (showId) => axios.get(REST_API_BASE_URL_SHOW + '/' + showId, { headers });
 
 export const setShowTime = (show) => axios.post(REST_API_BASE_URL_SHOW, show, {headers});
-
-//export const listShowtimesById = (movieId) => axios.get(REST_API_BASE_URL_SHOW + '/list/' + movieId, {headers})

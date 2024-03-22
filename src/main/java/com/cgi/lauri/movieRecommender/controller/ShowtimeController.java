@@ -22,6 +22,7 @@ public class ShowtimeController {
     @PostMapping
     public ResponseEntity<ShowtimeDto> createShowtime(@RequestBody ShowtimeDto showtimeDto) {
         Long movieId = movieService.getMovieIdByName(showtimeDto.getName());
+        //Fetchime showtime loomisel filmi kestvuse OMDB andmebaasist
         String duration = omdbService.fetchDuration(showtimeDto.getName());
         if (!duration.equals("N/A")) {
             Integer intDuration = Integer.valueOf(duration);

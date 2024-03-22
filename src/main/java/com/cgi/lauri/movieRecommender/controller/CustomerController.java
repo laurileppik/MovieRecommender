@@ -15,15 +15,12 @@ import java.util.List;
 @RequestMapping("/api/customers")
 public class CustomerController {
     private CustomerService customerService;
-    //Get Customer REST API
     @GetMapping("{id}")
-    //@PathVariable necessary because we want to pass id as customerId
     public ResponseEntity<CustomerDto> getCustomerById(@PathVariable("id") Long customerId) {
         CustomerDto customerDto = customerService.getCustomerById(customerId);
         return ResponseEntity.ok(customerDto);
     }
 
-    //Get all customers REST API
     @GetMapping
     public ResponseEntity<List<CustomerDto>> getAllCustomers() {
         List<CustomerDto> customers = customerService.getAllCustomers();

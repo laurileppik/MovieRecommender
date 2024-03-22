@@ -19,11 +19,12 @@ const ScreenComponent = () => {
   const movieId = queryParams.get('movieId');
   const navigate = useNavigate();
 
-  const [movieRating, setRating] = useState({
+  const [movieRating] = useState({
     movie: {id: movieId,},
     customer:{id: localStorage.getItem('customerId'),}
 });
 
+//REST API kutsed
   useEffect(() => {
     const fetchScreen = async () => {
       try {
@@ -40,6 +41,7 @@ const ScreenComponent = () => {
   }, [screenId, ticketCount]);
 
   const handleMovieRating = async (e) => {
+    //Laseme kasutajal filmi hinnata
     e.preventDefault();
     let userRating = prompt('Please rate the movie (out of 5):');
     userRating = parseInt(userRating);
@@ -52,7 +54,8 @@ const ScreenComponent = () => {
       ...movieRating,
       rating: userRating
     };
-  
+    
+    //Juhul kui kasutaja ei ole filmi vaadanud, lisame selle filmi vaadatud filmide andmebaasi.
     try {
       await setMovieRating(updatedRating);
       alert('Film edukalt vaadatud!');
@@ -62,8 +65,8 @@ const ScreenComponent = () => {
       navigate('/');
     }
   };
-  
 
+  //Tekitame saali istumisplaani
   const renderSeatingPlan = () => {
     if (!screen) return null;
     const plan = [];
@@ -71,21 +74,24 @@ const ScreenComponent = () => {
       const rowSeats = [];
       for (let j = 0; j < screen.seatsInRow; j++) {
         const seatIndex = i * screen.seatsInRow + j;
+        //Anname istekohale vastavalt klassi kas ta on vaba, kinni või soovitatav.
         let seatStatus = seats[seatIndex] ? 'available' : 'occupied';
         let isRecommended = recommSeats && recommSeats.includes(seatIndex);
         if (isRecommended) {
           seatStatus = 'recommend';
         }
         rowSeats.push(
+          //Vastavalt istekoha klassile stiliseerime selle.
           <td key={j} className={seatStatus}>
-            <img src={isRecommended ? recommChairImage : availableChairImage} alt={`Seat ${i + 1}-${j + 1}`} />
+            <img src={isRecommended ? recommChairImage : availableChairImage} alt={`Iste ${i + 1}-${j + 1}`} />
             <div className="seat-number">{j + 1}</div>
           </td>
         );
       }
       plan.push(
+        //Lisame reanumbrid
         <div className="seating-row" key={`row-${i}`}>
-          <div className="row-label">Rida {i + 1}</div>
+          <div className="row-label">Rida {screen.rows - i}</div>
           <table><tbody><tr>{rowSeats}</tr></tbody></table>
         </div>
       );

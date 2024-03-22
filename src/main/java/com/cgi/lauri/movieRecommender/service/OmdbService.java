@@ -8,6 +8,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class OmdbService {
+    //Vajalik, et ligi saada OMDB APIle
 
     @Value("${omdb.api.key}")
     private String apiKey;
@@ -56,6 +57,7 @@ public class OmdbService {
         return "N/A";
     }
 
+    //Selleks, et mitte iga kord uut urli teha, teeme selle ühe korra siin
     private String buildOmdbApiUrl(String title) {
         return UriComponentsBuilder.fromHttpUrl("http://www.omdbapi.com/")
                 .queryParam("t", title)
