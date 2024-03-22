@@ -18,17 +18,18 @@ Nendest linkidest võetud koodi on otse kopeeritud ja muudetud vastavalt selle �
 2) Ava XAMPP Control Panel. Vajuta Apache käivitamiseks "Start", vajuta "MYSQL" käivitamiseks "Start" ja vajuta andmebaasi avamiseks "Admin". Juhul kui MYSQL ei jookse pordil 3306, vajuta Config -> Service and Port Settings -> MYSQL
 ja vaheta seal port 3306ks.
 3) Tee uus tabel nimega "movierecommender". 
-4) Vajuta tabeli peale ning vajuta Impordi. Lae alla see fail: ning vajuta "Impordi"
+4) Vajuta tabeli peale ning vajuta Impordi. Lae alla andmebaasi fail (vajalik kui ei taha ise andmeid sisestada) ning vajuta "Impordi"
 5) Tee endale projekti jaoks folder, ava Terminal ning kirjuta "git clone https://github.com/laurileppik/MovieRecommender.git"
-6) Ava projekti folder Intelljga ning jooksuta klassi MovieRecommenderApplication.
+6) Ava projekti folder Intelljga ning jooksuta klassi MovieRecommenderApplication. Vajuta "Enable annotation processing" kui Lomboki hoiatus ette tuleb.
 7) Ava VSC foldrist MovieRecommender -> mrs-frontend. Kirjuta terminali npm install, npm run dev.
 8) Kirjuta brauserisse http://localhost:3000/
+9) Logi sisse nt kasutajaga kasutajanimi: a parool: a
 
 # Lahenduse kirjutamise protsess
-Alustasin projekti kirjutamisel ülesandes nõutud vastavate tehonloogiatega tutvumisest. Java ning JPAga olin juba tuttav, kuid Spring Booti ja Reactiga pidin tutvust tegema. Seejärel tekitasin RESTi loogika kirjutamiseks erinevad klassid vastavalt
-nii front- kui ka backendis videoseeria [1] abiga. Pärast seda tekitasin erinevate CRUD operatsioonide jaoks loogika ning lõin andmebaasi andmete säilitamiseks. Samal ajal alustasin ka Reactiga front-endi kirjutamist, kuhu lisasin Bootstrapi abiga
+Alustasin projekti kirjutamisel ülesandes nõutud vastavate tehnoloogiatega tutvumisest. Java ning JPAga olin juba tuttav, kuid Spring Booti ja Reactiga pidin tutvust tegema. Seejärel tekitasin RESTi loogika kirjutamiseks erinevad klassid vastavalt
+nii front- kui ka backendis videoseeria [2] abiga. Pärast seda tekitasin erinevate CRUD operatsioonide jaoks loogika ning lõin andmebaasi andmete säilitamiseks. Samal ajal alustasin ka Reactiga front-endi kirjutamist, kuhu lisasin Bootstrapi abiga
 tabelid erinevate filmide ja seansside info hoidimiseks. Peale seda lisasin võimaluse žanrite järgi sorteerida ning alustasin tööd saali komponendiga. Seejärel alustasin istekohtade soovitamisalgoritmi välja töötamist. Peale mida lisasin uue tabeli MovieRating
-kus hoiustan isikuga seotud vaadatud filmiinformatsiooni. (vaadatud film + reiting) Seejärel tekitasin [2] abiga endale registreerimise ja sisse/välja logimise. Peale seda alustasin tööd veel teiste filtrite kallal, lisasin algoritmi filmide soovitamiseks
+kus hoiustan isikuga seotud vaadatud filmiinformatsiooni. (vaadatud film + reiting) Seejärel tekitasin [1] abiga endale registreerimise ja sisse/välja logimise. Peale seda alustasin tööd veel teiste filtrite kallal, lisasin algoritmi filmide soovitamiseks
 ning lisasin OMDb APIst saadud informatsiooni filmide lisamisele. Viimaks tegelesin stylemise ja refactorimisega.
 
 # Olulised klassid/Struktuur
@@ -37,19 +38,15 @@ ning lisasin OMDb APIst saadud informatsiooni filmide lisamisele. Viimaks tegele
 
 contoller klassid - Tegelevad sisse tulevate HTTP requestidega ning tagastavad vastava vastuse
 
-  UserController - Ainult registreerimis/sisse/väljalogimis operatsioonid
+&emsp; UserController - Ainult registreerimis/sisse/väljalogimis operatsioonid
   
-  CustomerController - Kõik muud kasutajaga seotud operatsioonid
+&emsp; CustomerController - Kõik muud kasutajaga seotud operatsioonid
 
 dto klassid - controller klasside ja service klasside vahepealne kiht, kus front-endiga suhtlemiseks vajalikud väljad teisendatakse dto objektideks (model klassidega samaväärne klass, tehtud andmete edastamiseks controllerile)
 
 exception klass - Selles projektis vajalik vaid juhul kui andmebaasist vajalikku objekti ei leitud
 
 logic klassid - Vastutavad projektis kirjutatud loogika eest
-
-  MovieRecommenderLogic - 
-  
-  ScreenLogic - 
 
 mapper klassid - Mapivad modeli klassid dtodeks ja vastupidi
 
@@ -61,11 +58,11 @@ service klassid/liidesed - Nende abil saame defineerida äriloogika
 ### Frontend
 components
 
-  admin - klassid tegelevad admin protseduuridega nt filmide lisamine, seansside lisamine
+&emsp; admin - klassid tegelevad admin protseduuridega nt filmide lisamine, seansside lisamine
 
-  auth - autentimisega seotud klassid
+&emsp; auth - autentimisega seotud klassid
 
-  kõik muud komponendid, mida kasutame App.jsx klassis veebilehe renderdamisel
+&emsp; kõik muud komponendid, mida kasutame App.jsx klassis veebilehe renderdamisel
 
 css klassid - stiilimiseks vajalikud klassid
 
@@ -85,4 +82,4 @@ hõlpsasti erinevate veebilehtede (nt Baeldung oli väga kasulik) materjalidega 
 Väiksemaid probleeme sai enamasti lahendatud koodi hoolikalt ning uuesti lugedes ning tavalisi Debuggimise meetodeid kasutades. Ühtlasi oli loomulikult palju abi ka internetist ja tehisintellektist.
 
 Kuna lõpus jäi aega väheseks, ei saanud päris kõike implementeerida, mida oleksin soovinud. Kindlasti tahaksin, et veebileht näeks efektsem välja, oleksin tahtnud juurde lisada veel võimaluse mingi arv seansse automaatselt iga päev lisada, et 
-neid testimiseks kogu aeg manuaalselt ei peaks lisama, oleksin tahtnud juurde lisada testid, näidata ainult tulevasi seansse ning teatud kohtades projekti loogikat ümber kirjutada. 
+neid testimiseks kogu aeg manuaalselt ei peaks lisama, oleksin tahtnud juurde lisada testid, näidata ainult tulevasi seansse ning, andmebaasi lisamisel constrainte tekitada, sest hetkel saab peaaegu ükskõik missugusele ajale uut seanssi panna (kuid tegelikult samal ajal samas saalis seanssi olla ei saa) ning teatud kohtades projekti loogikat ümber kirjutada. 
