@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 const ListMovieComponent = () => {
 
     const [movies, setMovies] = useState([])
-    const [SetCustomer] = useState([])
+    const [customer, SetCustomer] = useState([])
 
     //REST API kutsed
     useEffect(() => {
@@ -29,15 +29,15 @@ const ListMovieComponent = () => {
 
   return (
     <div className='container'>
-        <h2 className='text-center'>List of Movies</h2>
+        <h2 className='text-center'>Soovitatud filmid</h2>
         <table className='table table-striped table-bordered'>
             <thead>
                 <tr>
-                    <th>Movie Name</th>
-                    <th>Genre</th>
-                    <th>Language</th>
-                    <th>Minimum age</th>
-                    <th>Imdb rating</th>
+                    <th>Filmi nimi</th>
+                    <th>Žanr</th>
+                    <th>Keel</th>
+                    <th>Vanusepiirang</th>
+                    <th>Imdb reiting</th>
                     <th></th>
                 </tr>
             </thead>

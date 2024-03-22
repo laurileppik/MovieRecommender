@@ -18,7 +18,7 @@ const HeaderComponent = () => {
         <div>
             <header>
                 <nav className="navbar navbar-expand-lg navbar-black bg-black">
-                    <a className="navbar-brand" href="/" style={{ color: 'white' }}>Budget apollo</a>
+                    <a className="navbar-brand" href="/" style={{ color: 'white' }}>Luna kino</a>
                     <button className="btn btn-link" onClick={handleLogout}> Logi välja </button>
                     {!(localStorage.getItem("customerId")) && (
                         <Link to={`http://localhost:3000/login`} className="btn btn-primary">Logi sisse</Link>

@@ -123,27 +123,27 @@ const ListShowtimeComponent = () => {
             <h2 className='text-center'>Filminimekiri</h2>
             { /*Erinevad filtrid, mis muutmisel kutsuvad oma vastava muutuse funktsiooni */  }
             <div className='genre-dropdown'>
-                <label htmlFor='genre'>Select Genre:</label>
+                <label htmlFor='genre'>Žanr:</label>
                 <select id='genre' onChange={handleGenreChange} value={selectedGenre}>
-                <option value=''>All Genres</option>
+                <option value=''>Kõik žanrid</option>
                     {genres.map(genre => (
                         <option key={genre} value={genre}>{genre}</option>
                     ))}
                 </select>
             </div>
             <div className='age-filter'>
-                <label htmlFor='age'>Select Age:</label>
+                <label htmlFor='age'>Vanusepiirang:</label>
                 <select id='age' onChange={handleAgeFilter} value={ageFilter}>
-                <option value=''>All ages</option>
+                <option value=''>Kõik vanused</option>
                     {ages.map(age => (
                         <option key = {age} value = {age}>{age}</option>
                     ))}
                 </select>
             </div>
             <div className='lang-filter'>
-                <label htmlFor='language'>Select Language:</label>
+                <label htmlFor='language'>Keel:</label>
                 <select id='language' onChange={handleLanguageChange} value={languageFilter}>
-                    <option value=''>All languages</option>
+                    <option value=''>Kõik keeled</option>
                     {languages.map(language => (
                         <option key = {language} value={language}>{language}</option>
                     ))}
@@ -169,15 +169,15 @@ const ListShowtimeComponent = () => {
             <table className='table table-striped table-bordered'>
                 <thead>
                     <tr>
-                        <th>Movie Name</th>
-                        <th>Genre</th>
-                        <th>Language</th>
-                        <th>Minimum age</th>
-                        <th>Start date</th>
-                        <th>Start time</th>
-                        <th>Duration</th>
-                        <th>Screen</th>
-                        <th>Imdb rating</th>
+                        <th>Filmi nimi</th>
+                        <th>Žanr</th>
+                        <th>Keel</th>
+                        <th>Vanusepiirang</th>
+                        <th>Alguskuupäev</th>
+                        <th>Algusaeg</th>
+                        <th>Kestvus</th>
+                        <th>Saal</th>
+                        <th>Imdb reiting</th>
                         <th></th> 
                     </tr>
                 </thead>

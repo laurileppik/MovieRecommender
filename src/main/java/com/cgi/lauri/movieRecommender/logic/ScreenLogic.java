@@ -152,7 +152,7 @@ public class ScreenLogic {
                 (noOfTickets - seats.size() - splittingFriendsRecommendedSeats.size() >= 2 ||
                         noOfTickets - seats.size() - splittingFriendsRecommendedSeats.size() == 0)) {
             while (noOfTickets - splittingFriendsRecommendedSeats.size() > 0) {
-                int addableSeat = seatsInOneRow * seat[0] + seats.removeFirst();
+                int addableSeat = seatsInOneRow * seat[0] + seats.remove(0);
                 if (!splittingFriendsRecommendedSeats.contains(addableSeat))
                     splittingFriendsRecommendedSeats.add(addableSeat);
                 if (seats.size() <= 0) break;

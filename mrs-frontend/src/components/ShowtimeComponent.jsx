@@ -57,14 +57,14 @@ const ShowtimeComponent = () => {
       {showtime && movie && (
         
         <div className= "details">
-          <h2>Showtime Details</h2>
-          <p>Start Date: {new Date(showtime.startTime).toLocaleDateString('en-GB')}</p>
-          <p>Start time: {new Date(showtime.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}</p>
-          <p>Duration: {showtime.duration}</p>
-          <p>Movie: {movie.name}</p>
+          <h2>Seansi detailid</h2>
+          <p>Alguskuupäev: {new Date(showtime.startTime).toLocaleDateString('en-GB')}</p>
+          <p>Alguskellaaeg: {new Date(showtime.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}</p>
+          <p>Kestvus: {showtime.duration}</p>
+          <p>Film: {movie.name}</p>
           <button onClick={handleSelectTicket}>+</button>
           <button onClick={handleDeselectTicket}>-</button>
-          <p>Tickets: {ticketCount}</p>
+          <p>Pileteid: {ticketCount}</p>
           <Link to={`/screens/${showtime.screenId}?ticketCount=${ticketCount}&movieId=${showtime.movieId}`} className="btn btn-primary">Vali kohad</Link>
         </div>
       )}

@@ -44,7 +44,7 @@ public class MovieRecommenderLogic {
             int howManyMovies = howManyRecommGenres.get(genre);
             List<Movie> correctGenreMovies = getcorrectGenreMovies(genre, howManyMovies, allMovies);
             while (!correctGenreMovies.isEmpty()) {
-                recommendedMovies.add(correctGenreMovies.removeFirst());
+                recommendedMovies.add(correctGenreMovies.remove(0));
             }
         }
         //Vajalik, sest tahame filme näidata kõige suuremast IMDB ratingust kõige väiksemani.

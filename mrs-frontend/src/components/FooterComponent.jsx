@@ -5,7 +5,7 @@ const FooterComponent = () => {
     <div>
         <footer>
             <nav className="footer">
-                <span>All rights reserved 2024 by budget Apollo</span>
+                <span> &copy; Kõik õigused reserveeritud 2024 Luna kino.</span>
             </nav>
         </footer>
     </div>
