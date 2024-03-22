@@ -35,10 +35,10 @@ const AddShowTimesComponent = () => {
 
     return (
         <div>
-            <h2>Add Movie</h2>
+            <h2>Lisa seanss</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Name:</label>
+                    <label>Nimi:</label>
                     <input
                         type="text"
                         name="name"
@@ -48,7 +48,7 @@ const AddShowTimesComponent = () => {
                     />
                 </div>
                 <div>
-                    <label>Start Time:</label>
+                    <label>Algusaeg:</label>
                     <input
                         type="datetime-local"
                         name="startTime"
@@ -58,7 +58,7 @@ const AddShowTimesComponent = () => {
                     />
                 </div>
                 <div>
-                    <label>Screen:</label>
+                    <label>Saal:</label>
                     <input
                         type="number"
                         name="screenId"
@@ -67,7 +67,7 @@ const AddShowTimesComponent = () => {
                         required
                     />
                 </div>
-                <button type="submit">Add Showtime</button>
+                <button type="submit">Lisa seanss</button>
             </form>
         </div>
     );

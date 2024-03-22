@@ -20,12 +20,12 @@ function SignupComponent() {
     const handleSignup = async () => { 
         try { 
             if (!firstName || !lastName ||!username || !password || !confirmPassword || !birthDate) { 
-                setError('Please fill in all fields.'); 
+                setError('Palun täida kõik väljad.'); 
                 return; 
             } 
   
             if (password !== confirmPassword) { 
-                throw new Error("Passwords do not match"); 
+                throw new Error("Paroolid ei ole samad"); 
             } 
   
             const response = await axios.post('http://localhost:8080/auth/signup', { 
@@ -38,7 +38,7 @@ function SignupComponent() {
             }); 
             history('/login'); 
         } catch (error) { 
-            console.error('Signup failed:', error.response ? error.response.data : error.message); 
+            console.error('Registreerimine ebaõnnestus: ', error.response ? error.response.data : error.message); 
             setError(error.response ? error.response.data : error.message); 
         } 
     }; 
@@ -47,17 +47,17 @@ function SignupComponent() {
         <div className="d-flex justify-content-center align-items-center vh-100"> 
             <div className="border rounded-lg p-4" style={{width: '600px', height: 'auto'}}> 
                 <MDBContainer className="p-3"> 
-                    <h2 className="mb-4 text-center">Sign Up Page</h2>  
+                    <h2 className="mb-4 text-center">Registeerimine</h2>  
                     {error && <p className="text-danger">{error}</p>} 
-                    <MDBInput wrapperClass='mb-3' id='firstName' placeholder={"First Name"} value={firstName} type='text'
+                    <MDBInput wrapperClass='mb-3' id='firstName' placeholder={"Eesnimi"} value={firstName} type='text'
                                 onChange={(e) => setFirstName(e.target.value)}/>
-                    <MDBInput wrapperClass='mb-3' id='lastName' placeholder={"Last Name"} value={lastName} type='text'
+                    <MDBInput wrapperClass='mb-3' id='lastName' placeholder={"Perenimi"} value={lastName} type='text'
                                 onChange={(e) => setLastName(e.target.value)}/>
-                    <MDBInput wrapperClass='mb-3' placeholder='Username' id='userName' value={username} type='userName'
+                    <MDBInput wrapperClass='mb-3' placeholder='Username' id='Kasutajanimi' value={username} type='userName'
                               onChange={(e) => setUsername(e.target.value)}/> 
-                    <MDBInput wrapperClass='mb-3' placeholder='Password' id='password' type='password' value={password} 
+                    <MDBInput wrapperClass='mb-3' placeholder='Password' id='Salasõna' type='password' value={password} 
                               onChange={(e) => setPassword(e.target.value)}/> 
-                    <MDBInput wrapperClass='mb-3' placeholder='Confirm Password' id='confirmPassword' type='password'
+                    <MDBInput wrapperClass='mb-3' placeholder='Salasõna uuesti' id='confirmPassword' type='password'
                               value={confirmPassword} 
                               onChange={(e) => setConfirmPassword(e.target.value)}/> 
   
@@ -67,11 +67,11 @@ function SignupComponent() {
                               onChange={(e) => setbirthDate(e.target.value)}/> 
                     <button className="mb-4 d-block mx-auto fixed-action-btn btn-primary"
                             style={{height: '40px', width: '100%'}} 
-                            onClick={handleSignup}>Sign Up 
+                            onClick={handleSignup}>Registreeri
                     </button> 
   
                     <div className="text-center"> 
-                        <p>Already Registered? <a href="/login">Login</a></p> 
+                        <p>Juba registreeritud? <a href="/login">Logi sisse</a></p> 
                     </div> 
   
                 </MDBContainer> 

@@ -63,10 +63,10 @@ const AddMovieComponent = () => {
 
     return (
         <div>
-            <h2>Add Movie</h2>
+            <h2>Lisa film</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Name:</label>
+                    <label>Nimi:</label>
                     <input
                         type="text"
                         name="name"
@@ -86,7 +86,7 @@ const AddMovieComponent = () => {
                     )}
                 </div>
                 <div>
-                    <label>Minimum Age:</label>
+                    <label>Minimaalne vanus:</label>
                     <input
                         type="number"
                         name="minimumAge"
@@ -95,7 +95,7 @@ const AddMovieComponent = () => {
                         required
                     />
                 </div>
-                <button type="submit">Add Movie</button>
+                <button type="submit">Lisa film</button>
             </form>
         </div>
     );
