@@ -1,7 +1,6 @@
 package com.cgi.lauri.movieRecommender.dto;
 
 import com.cgi.lauri.movieRecommender.model.MovieRating;
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +20,5 @@ public class CustomerDto {
     private Set<MovieRating> ratings;
     private String userName;
     private Date birthDate;
-    //private String password;
     private String role;
 }

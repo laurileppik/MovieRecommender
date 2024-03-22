@@ -6,7 +6,6 @@ import com.cgi.lauri.movieRecommender.mapper.MovieRatingMapper;
 import com.cgi.lauri.movieRecommender.model.Customer;
 import com.cgi.lauri.movieRecommender.model.Movie;
 import com.cgi.lauri.movieRecommender.model.MovieRating;
-import com.cgi.lauri.movieRecommender.model.MovieRatingKey;
 import com.cgi.lauri.movieRecommender.repository.CustomerRepository;
 import com.cgi.lauri.movieRecommender.repository.MovieRatingRepository;
 import com.cgi.lauri.movieRecommender.repository.MovieRepository;

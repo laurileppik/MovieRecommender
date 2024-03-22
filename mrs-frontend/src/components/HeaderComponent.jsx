@@ -17,10 +17,10 @@ const HeaderComponent = () => {
         <div>
             <header>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                    <a className="navbar-brand" href="/">Apollo cinema</a>
-                    <button className="btn btn-link" onClick={handleLogout}> Logout </button>
+                    <a className="navbar-brand" href="/">Budget apollo</a>
+                    <button className="btn btn-link" onClick={handleLogout}> Logi välja </button>
                     {!(localStorage.getItem("customerId")) && (
-                <Link to={`http://localhost:3000/login`} className="btn btn-primary">Login</Link>
+                <Link to={`http://localhost:3000/login`} className="btn btn-primary">Logi sisse</Link>
             )} 
                 </nav>
             </header>

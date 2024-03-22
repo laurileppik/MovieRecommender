@@ -32,7 +32,6 @@ function SignupComponent() {
                 role: 'USER', 
                 birthDate: birthDate 
             }); 
-            console.log(response.data); 
             history('/login'); 
         } catch (error) { 
             console.error('Signup failed:', error.response ? error.response.data : error.message); 

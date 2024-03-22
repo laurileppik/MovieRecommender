@@ -90,9 +90,4 @@ public class MovieController {
         return ResponseEntity.ok("Movie deleted succesfully");
     }
 
-    /**@PostMapping("/{id}/screens")
-    public ResponseEntity<MovieDto> addScreensToMovie(@PathVariable Long id, @RequestBody List<Long> screenIds) {
-        MovieDto savedMovie = movieService.addScreensToMovie(id, screenIds);
-        return new ResponseEntity<>(savedMovie, HttpStatus.CREATED);
-    }**/
 }

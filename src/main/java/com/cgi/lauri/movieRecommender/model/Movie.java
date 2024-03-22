@@ -1,15 +1,12 @@
 package com.cgi.lauri.movieRecommender.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -46,11 +43,4 @@ public class Movie {
 
     @Column(name="imdb_rating")
     private Double imdbRating;
-
-    /**@ManyToMany
-    @JoinTable(
-            name = "movie_screen",
-            joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "screen_id"))
-    private List<Screen> screens;**/
 }

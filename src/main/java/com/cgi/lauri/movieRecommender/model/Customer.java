@@ -42,10 +42,6 @@ public class Customer {
 
     private String role;
 
-    public Customer(Long id, String firstName, String lastName, Set<MovieRating> ratings, String userName, String role) {
-
-    }
-
     public Customer(Long id, String firstName, String lastName, Set<MovieRating> ratings, String userName, Date birthDate, String role) {
         this.id = id;
         this.firstName = firstName;

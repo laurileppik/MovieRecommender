@@ -6,8 +6,8 @@ import ListShowtimeComponent from './components/ListShowtimeComponent'
 import ShowtimeComponent from './components/ShowtimeComponent';
 import ScreenComponent from './components/ScreenComponent'
 import CustomerComponent from './components/CustomerComponent'
-import LoginPage from './components/LoginPage'
-import SignupComponent from './components/SignUpComponent'
+import LoginComponent from './components/auth/LoginComponent'
+import SignupComponent from './components/auth/SignUpComponent'
 import AddMovieComponent from './components/admin/AddMovieComponent'
 import AddShowTimesComponent from './components/admin/AddShowTimesComponent'
 
@@ -44,7 +44,7 @@ function App() {
             <Route path='/showtimes/:showtimeID' element={<ShowtimeComponent />} />
             <Route path='/screens/:screenId' element={<ScreenComponent />} />
             <Route path='/customers/:customerID' element={<CustomerComponent />} />
-            <Route path='/login' element={<LoginPage />} />
+            <Route path='/login' element={<LoginComponent />} />
             <Route path='/signup' element={<SignupComponent />} />
             <Route path='/admin/addmovie' element={<AddMovieComponent />} />
             <Route path='/admin/addshowtime' element={<AddShowTimesComponent />} />

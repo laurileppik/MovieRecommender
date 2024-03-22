@@ -9,6 +9,5 @@ public interface ShowtimeService {
     ShowtimeDto createShowTime(ShowtimeDto showtimeDto);
     List<ShowtimeDto> getAllShowtimes();
     ShowtimeDto getShowtimeById(Long showId);
-
     List<ShowtimeDto> getAllShowtimesById(Long movieId);
 }

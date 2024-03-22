@@ -9,13 +9,10 @@ import com.cgi.lauri.movieRecommender.mapper.MovieRatingMapper;
 import com.cgi.lauri.movieRecommender.model.Customer;
 import com.cgi.lauri.movieRecommender.model.Movie;
 import com.cgi.lauri.movieRecommender.model.MovieRating;
-import com.cgi.lauri.movieRecommender.repository.CustomerRepository;
-import com.cgi.lauri.movieRecommender.repository.MovieRatingRepository;
 import com.cgi.lauri.movieRecommender.repository.MovieRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
@@ -148,17 +145,4 @@ public class MovieServiceImpl implements MovieService{
     public List<String> getAllLanguages() {
         return movieRepository.findAllLanguages();
     }
-
-    /**@Override
-    public MovieDto addScreensToMovie(Long movieId, List<Long> screenIds) {
-        Movie movie = movieRepository.findById(movieId).orElseThrow(
-                () -> new ResourceNotFoundException("Movie does not exist with the given id: " + movieId)
-        );
-        List<Screen> screens = screenRepository.findAllById(screenIds);
-        movie.getScreens().addAll(screens);
-        Movie savedMovie = movieRepository.save(movie);
-        return MovieMapper.mapToMovieDTO(savedMovie);
-    }**/
-
-
 }

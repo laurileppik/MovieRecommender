@@ -6,7 +6,6 @@ import com.cgi.lauri.movieRecommender.model.Customer;
 import com.cgi.lauri.movieRecommender.repository.CustomerRepository;
 import com.cgi.lauri.movieRecommender.security.JwtProvider;
 import com.cgi.lauri.movieRecommender.service.CustomerServiceImpl;
-import com.cgi.lauri.movieRecommender.service.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +30,6 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private UserServiceImplementation customUserDetails;
-    @Autowired
     private CustomerServiceImpl customerService;
 
     @PostMapping("/signup")
@@ -44,8 +41,8 @@ public class UserController {
         String role = user.getRole();
         Date date = user.getBirthDate();
 
-        Optional<Customer> isEmailExist = userRepository.findByUserName(email);
-        if (isEmailExist.isPresent()) {
+        Optional<Customer> isUsernameExist = userRepository.findByUserName(email);
+        if (isUsernameExist.isPresent()) {
             //throw new Exception("Email Is Already Used With Another Account");
 
         }
@@ -68,13 +65,9 @@ public class UserController {
         authResponse.setJwt(token);
         authResponse.setMessage("Register Success");
         authResponse.setStatus(true);
-        return new ResponseEntity<AuthResponse>(authResponse, HttpStatus.OK);
+        return new ResponseEntity<>(authResponse, HttpStatus.OK);
 
     }
-
-
-
-
 
     @PostMapping("/signin")
     public ResponseEntity<AuthResponse> signin(@RequestBody Customer loginRequest) {
@@ -106,7 +99,7 @@ public class UserController {
 
         System.out.println(username+"---++----"+password);
 
-        UserDetails userDetails = customUserDetails.loadUserByUsername(username);
+        UserDetails userDetails = customerService.loadUserByUsername(username);
 
         System.out.println("Sig in in user details"+ userDetails);
 
